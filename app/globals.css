@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: all;
+}
+
+:root {
+    --font-body: var(--font-inter);
+    --font-heading: var(--font-poppins);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+}
+
+.bg-grid {
+    background-color: hsl(var(--b1));
+    background-image:
+        radial-gradient(circle at top,
+            rgba(255, 255, 255, 0.08),
+            transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+    background-size: auto, 32px 32px, 32px 32px;
+}
+
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.font-pixelify {
+    font-family: var(--font-pixelify);
+}
+
+.font-doto {
+    font-family: var(--font-doto);
+}
+
+.font-molle {
+    font-family: var(--font-molle);
+}
+
+.font-macondo {
+    font-family: var(--font-macondo);
+}
+
+.font-pacifico {
+    font-family: var(--font-pacifico);
+}
+
+.font-monofett {
+    font-family: var(--font-monofett);
+}
+
+.font-monoton {
+    font-family: var(--font-monoton);
+}
+
+.font-oswald {
+    font-family: var(--font-oswald);
+}
