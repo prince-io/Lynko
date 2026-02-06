@@ -101,9 +101,9 @@ const Home = ({ user, setUser, setActiveTab }) => {
       <div className="divider"></div>
 
       <div className="flex flex-col justify-start items-center gap-6 md:gap-12">
-        <div className="flex justify-center items-center gap-4 md:gap-12 md:w-[70%] bg-base-200 p-4 rounded-xl">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-12 md:w-[70%] bg-base-200 p-4 rounded-xl">
           <div className="avatar">
-            <div className="w-16 md:w-28 rounded-full relative">
+            <div className="w-20 md:w-28 rounded-full relative">
               <Image
                 src={user?.profilePic || "/default.jpg"}
                 alt="Profile avatar"
@@ -118,12 +118,12 @@ const Home = ({ user, setUser, setActiveTab }) => {
               href={lynko}
               target="_blank"
               rel="noopener noreferrer"
-              className="link link-hover text-sm md:text-2xl"
+              className="link link-hover text-sm md:text-2xl break-all"
             >
               {lynko}
             </h1>
 
-            <div className="flex gap-3 md:gap-6">
+            <div className="flex justify-center md:justify-start gap-3 md:gap-6">
               <button
                 className="btn btn-sm md:btn-md btn-secondary"
                 onClick={handleCopy}
@@ -136,7 +136,7 @@ const Home = ({ user, setUser, setActiveTab }) => {
                 rel="noopener noreferrer"
                 className="link link-hover"
               >
-                <button className="btn btn-sm md:btn-md btn-secondary w-[105%]">
+                <button className="btn btn-sm md:btn-md btn-secondary">
                   View Live
                 </button>
               </a>

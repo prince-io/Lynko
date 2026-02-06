@@ -222,6 +222,10 @@ const Links = ({ user, setUser }) => {
     setToast(true);
   }
 
+  const hasEmptyLinks = links.some(
+    (link) => !link.title?.trim() || !link.url?.trim(),
+  );
+
   const isDirty =
     deletedIds.length > 0 ||
     JSON.stringify(links.map((l) => ({ ...l }))) !==
@@ -261,7 +265,7 @@ const Links = ({ user, setUser }) => {
             <button
               className="btn btn-sm md:btn-md btn-primary"
               onClick={saveAllLinks}
-              disabled={!isDirty || isSaving}
+              disabled={!isDirty || isSaving || hasEmptyLinks}
             >
               {isSaving ? "Saving..." : "Save All"}
             </button>

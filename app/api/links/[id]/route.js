@@ -22,7 +22,7 @@ export async function PUT(req, { params }) {
       order: body.order,
       isActive: body.isActive,
     },
-    { new: true }
+    { new: true },
   );
 
   if (!updated) {

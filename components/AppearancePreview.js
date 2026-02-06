@@ -28,7 +28,7 @@ const AppearancePreview = ({ user, links, design }) => {
             </h1>
 
             <button
-              className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} btn btn-xs md:btn-md btn-neutral transition-transform duration-200 hover:scale-110`}
+              className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} btn btn-xs md:btn-md btn-neutral transition-transform duration-200 hover:scale-105`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ const AppearancePreview = ({ user, links, design }) => {
                 href="#"
                 onClick={(e) => e.preventDefault()}
                 key={index}
-                className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} text-accent-content border-4 transition-transform duration-200 hover:scale-110`}
+                className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} text-accent-content border-4 transition-transform duration-200 hover:scale-105`}
               >
                 {link.title || "Untitled"}
               </a>
@@ -79,7 +79,7 @@ const AppearancePreview = ({ user, links, design }) => {
             onClick={(e) => e.preventDefault()}
             target="_blank"
             rel="noopener noreferrer"
-            className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} btn btn-neutral mt-8 md:mt-12 transition-transform duration-200 hover:scale-110`}
+            className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} btn btn-neutral mt-8 md:mt-12 transition-transform duration-200 hover:scale-105`}
           >
             Get your own Lynko
           </a>

@@ -2,8 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
-import { writeFile, mkdir, unlink } from "fs/promises";
-import path from "path";
+import cloudinary from "@/lib/cloudinary";
 
 export async function GET(req) {
   const { userId } = await auth();
@@ -32,11 +31,8 @@ export async function POST(req) {
 
   const user = await User.findOne({ clerkUserId: userId });
 
-  if (user.profilePic) {
-    const oldFilePath = path.join(process.cwd(), "public", user.profilePic);
-    try {
-      await unlink(oldFilePath);
-    } catch (err) {}
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
   const formData = await req.formData();
@@ -56,20 +52,26 @@ export async function POST(req) {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  const ext = file.type.split("/")[1];
-  const timestamp = Date.now();
-  const filename = `${userId}_${timestamp}.${ext}`;
+  const uploadResult = await new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream(
+        {
+          folder: "lynko/avatars",
+          public_id: userId,
+          overwrite: true,
+          resource_type: "image",
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        },
+      )
+      .end(buffer);
+  });
 
-  const uploadDir = path.join(process.cwd(), "public/uploads/avatars");
-  await mkdir(uploadDir, { recursive: true });
-
-  const filePath = path.join(uploadDir, filename);
-  await writeFile(filePath, buffer);
-
-  const imagePath = `/uploads/avatars/${filename}`;
   const updatedUser = await User.findOneAndUpdate(
     { clerkUserId: userId },
-    { profilePic: imagePath },
+    { profilePic: uploadResult.secure_url },
     { new: true },
   );
 
