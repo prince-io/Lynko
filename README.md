@@ -6,7 +6,7 @@ This repository is a production-ready Next.js application using the App Router, 
 
 ## Key Features
 
-- Per-user public profile pages (e.g., `https://example.com/{username}`)
+- Per-user public profile pages (e.g., `https://lynko-fun.vercel.app/{username}`)
 - Authenticated dashboard to manage profile, links, and appearance
 - Avatar uploads stored in Cloudinary
 - Per-user design customizations (theme, fonts, button styles)
@@ -32,25 +32,20 @@ This repository is a production-ready Next.js application using the App Router, 
 
 ## Environment Variables
 
-Create a `.env.local` file in the project root containing at least the following variables:
+Create a `.env.local` file in the project root containing the following variables:
 
 ```
-MONGODB_URI=your_mongodb_connection_string
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXTAUTH_SECRET=some_secret_if_needed
+MONGODB_URI=...
+CLERK_SECRET_KEY=...
 
-# Cloudinary
+NEXT_PUBLIC_APP_URL=...
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+
 CLOUDINARY_CLOUD_NAME=...
 CLOUDINARY_API_KEY=...
 CLOUDINARY_API_SECRET=...
-
-# Clerk (follow Clerk dashboard for exact names)
-CLERK_FRONTEND_API=...
-CLERK_API_KEY=...
-CLERK_SECRET_KEY=...
+CLOUDINARY_URL=...
 ```
-
-Note: Clerk may require additional env vars depending on how you configured it. Keep secrets out of version control.
 
 ## Local Development
 
@@ -100,21 +95,11 @@ public/
 
 This project is compatible with Vercel and other Node.js hosting platforms. Ensure environment variables are configured in your deployment target. Vercel supports Next.js App Router features out of the box.
 
-## Contributing
+## One Last Thing
 
-1. Fork the repo
-2. Create a feature branch
-3. Open a pull request with a clear description
+Thanks for checking out Lynko 💙
 
-## License
+If you found this project helpful, feel free to give it a star, share feedback, or contribute to make it even better.  
+Happy building 🚀
 
-This repository does not include a license file. Add a `LICENSE` if you intend to open-source the project.
-
----
-
-If you'd like, I can also:
-
-- Add a `.env.example` file with the variables listed above.
-- Create a short developer onboarding guide with run & test commands.
-
-Which would you like next?
+Made with curiosity, creativity, and lots of code ✨
