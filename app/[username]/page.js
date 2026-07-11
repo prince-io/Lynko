@@ -1,9 +1,7 @@
-import PreviewWrapper from "@/components/PreviewWrapper";
+import LynkoPageWrapper from "@/components/lynkopage/LynkoPageWrapper";
 
-export default async function Page({ params }) {
-  const data = await params;
-  const username = await data.username;
-  return <PreviewWrapper username={username} />;
+export default async function Page() {
+  return <LynkoPageWrapper />;
 }
 
 export async function generateMetadata({ params }) {

@@ -1,9 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import DashboardContent from "@/components/DashboardContent";
+import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 
 async function generateUniqueUsername() {
   let username;
@@ -48,15 +46,5 @@ export default async function DashboardLayout() {
     _id: userDoc._id.toString(),
   };
 
-  return (
-    <>
-      <Navbar />
-      <div className="dashboard-container md:min-h-screen">
-        <div className="flex-1 p-4">
-          <DashboardContent User={USER} />
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
+  return <DashboardWrapper user={USER} />;
 }

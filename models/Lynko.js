@@ -29,7 +29,7 @@ const lynkoSchema = new mongoose.Schema(
       default: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.models.Lynko || mongoose.model("Lynko", lynkoSchema);

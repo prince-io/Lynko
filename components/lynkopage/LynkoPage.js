@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const Preview = ({ user, links, design }) => {
+const LynkoPage = ({ user, links, design }) => {
   const [lynko, setLynko] = useState(
     `${process.env.NEXT_PUBLIC_APP_URL}/${user.username}`,
   );
@@ -144,4 +144,4 @@ const Preview = ({ user, links, design }) => {
   );
 };
 
-export default Preview;
+export default LynkoPage;

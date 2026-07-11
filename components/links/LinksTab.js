@@ -1,23 +1,43 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import LinkPair from "../LinkPair";
+import LinkPair from "./LinkPair";
 import {
   DndContext,
   closestCenter,
-  MouseSensor,
+  PointerSensor,
   TouchSensor,
+  KeyboardSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
+  arrayMove,
 } from "@dnd-kit/sortable";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { arrayMove } from "@dnd-kit/sortable";
 import { generateUUID } from "@/lib/uuid";
+
+const restrictToVerticalAxis = ({ transform }) => ({
+  ...transform,
+  x: 0,
+});
+
+const restrictToWindowEdges = ({ transform, draggingNodeRect, windowRect }) => {
+  if (!draggingNodeRect || !windowRect) return transform;
+
+  const newY = Math.min(
+    Math.max(transform.y, -draggingNodeRect.top),
+    windowRect.height - draggingNodeRect.bottom,
+  );
+
+  return {
+    ...transform,
+    y: newY,
+  };
+};
 
 const SortableLink = ({ link, children }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -35,7 +55,7 @@ const SortableLink = ({ link, children }) => {
   );
 };
 
-const Links = ({ user, setUser }) => {
+const LinksTab = ({ user, setUser }) => {
   const [initialLinks, setInitialLinks] = useState([]);
   const [links, setLinks] = useState([]);
   const [deletedIds, setDeletedIds] = useState([]);
@@ -46,7 +66,7 @@ const Links = ({ user, setUser }) => {
   const [toast, setToast] = useState(false);
 
   const sensors = useSensors(
-    useSensor(MouseSensor, {
+    useSensor(PointerSensor, {
       activationConstraint: {
         distance: 5,
       },
@@ -57,6 +77,7 @@ const Links = ({ user, setUser }) => {
         tolerance: 5,
       },
     }),
+    useSensor(KeyboardSensor),
   );
 
   useEffect(() => {
@@ -235,7 +256,7 @@ const Links = ({ user, setUser }) => {
     <div>
       {display && (
         <div className="toast toast-end z-3">
-          <div className={`alert ${mssg.type}`}>
+          <div className={`alert text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>
           </div>
         </div>
@@ -245,7 +266,7 @@ const Links = ({ user, setUser }) => {
         <div className="flex flex-col md:flex-row md:justify-between md:items-center p-3 md:p-0">
           <h1 className="text-xl md:text-3xl">Link It All</h1>
 
-          <div className="divider md:hidden"></div>
+          <div className="divider divider-primary md:hidden"></div>
 
           <div className="flex gap-3 md:gap-4">
             <button
@@ -272,39 +293,42 @@ const Links = ({ user, setUser }) => {
           </div>
         </div>
 
-        <div className="divider hidden md:flex"></div>
+        <div className="divider divider-primary hidden md:flex"></div>
 
-        <div>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext
-              items={links.map((link) => link.clientId)}
-              strategy={verticalListSortingStrategy}
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-7xl">
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+              modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
             >
-              <div className="flex flex-col gap-4 md:gap-6 my-4 md:my-6">
-                {links.map((link, index) => (
-                  <SortableLink key={link.clientId} link={link}>
-                    {({ attributes, listeners }) => (
-                      <LinkPair
-                        index={index + 1}
-                        initialValue={link}
-                        onSave={(value) => saveLink(link.clientId, value)}
-                        onDelete={() => removeLink(link.clientId)}
-                        dragHandleProps={{ ...attributes, ...listeners }}
-                      />
-                    )}
-                  </SortableLink>
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
+              <SortableContext
+                items={links.map((link) => link.clientId)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="flex flex-col items-stretch gap-4 md:gap-6 my-4 md:my-6">
+                  {links.map((link, index) => (
+                    <SortableLink key={link.clientId} link={link}>
+                      {({ attributes, listeners }) => (
+                        <LinkPair
+                          index={index + 1}
+                          initialValue={link}
+                          onSave={(value) => saveLink(link.clientId, value)}
+                          onDelete={() => removeLink(link.clientId)}
+                          dragHandleProps={{ ...attributes, ...listeners }}
+                        />
+                      )}
+                    </SortableLink>
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Links;
+export default LinksTab;

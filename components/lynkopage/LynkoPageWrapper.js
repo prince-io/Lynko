@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Preview from "@/components/Preview";
+import LynkoPage from "./LynkoPage";
 
-export default function PublicPage() {
+export default function LynkoPageWrapper() {
   const { username } = useParams();
   const router = useRouter();
 
@@ -14,7 +14,7 @@ export default function PublicPage() {
   useEffect(() => {
     if (!username) return;
 
-    async function fetchPublicData() {
+    async function fetchPublicPage() {
       const res = await fetch(`/api/public/${username}`);
 
       if (res.status === 404) {
@@ -27,7 +27,7 @@ export default function PublicPage() {
       setLoading(false);
     }
 
-    fetchPublicData();
+    fetchPublicPage();
   }, [username, router]);
 
   if (loading) {
@@ -42,7 +42,7 @@ export default function PublicPage() {
 
   return (
     <div className="min-h-screen">
-      <Preview user={data.user} links={data.links} design={data.design} />
+      <LynkoPage user={data.user} links={data.links} design={data.design} />
     </div>
   );
 }

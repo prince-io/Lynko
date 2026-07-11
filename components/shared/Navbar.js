@@ -1,0 +1,126 @@
+"use client";
+
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+import ThemeButton from "./ThemeButton";
+import Image from "next/image";
+import Menu from "./Menu";
+
+const Navbar = ({ activeTab, setActiveTab }) => {
+  return (
+    <div className="max-lg:collapse bg-primary shadow-sm w-full rounded-md sticky top-0 z-50">
+      <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
+      <label
+        htmlFor="navbar-1-toggle"
+        className="fixed inset-0 hidden max-lg:peer-checked:block"
+      ></label>
+
+      <div className="collapse-title navbar">
+        <div className="navbar-start flex items-center gap-2 ml-0 md:ml-1">
+          <label
+            htmlFor="navbar-1-toggle"
+            className="btn btn-ghost lg:hidden text-base-100"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+          <h1 className="flex justify-center items-center gap-2 text-xl md:text-3xl font-semibold">
+            <Image
+              src="/logo.svg"
+              alt="App logo"
+              width={56}
+              height={56}
+              className="w-8 h-8 md:w-12 md:h-12"
+            />
+            <span className="text-base-100">LynkO</span>
+          </h1>
+        </div>
+
+        <div className="navbar-center hidden lg:flex">
+          <SignedIn>
+            <Menu
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              className="menu bg-base-100 lg:menu-horizontal rounded-box gap-2 text-base"
+            />
+          </SignedIn>
+        </div>
+
+        <div className="navbar-end flex gap-3">
+          <ThemeButton />
+
+          <SignedOut>
+            <ul className="hidden md:flex menu menu-horizontal px-1 text-base text-base-100 font-bold">
+              <li>
+                <a href="#about">About Us</a>
+              </li>
+              <li>
+                <a href="#faq">FAQ</a>
+              </li>
+            </ul>
+            <div className="hidden md:flex gap-4">
+              <SignInButton className="btn btn-sm md:btn-md btn-soft text-base" />
+              <SignUpButton>
+                <button className="btn btn-sm md:btn-md btn-soft btn-primary text-base">
+                  Sign Up
+                </button>
+              </SignUpButton>
+            </div>
+          </SignedOut>
+
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+      </div>
+
+      <div className="collapse-content lg:hidden z-1 bg-base-100">
+        <SignedIn>
+          <Menu
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            className="menu gap-2 text-base"
+          />
+        </SignedIn>
+
+        <SignedOut>
+          <ul className="menu">
+            <li>
+              <a href="#about">About Us</a>
+            </li>
+            <li>
+              <a href="#faq">FAQ</a>
+            </li>
+            <li className="flex flex-row justify-center gap-4 mt-4">
+              <SignInButton className="btn btn-sm btn-soft text-base" />
+              <SignUpButton>
+                <button className="btn btn-sm btn-soft btn-primary text-base">
+                  Sign Up
+                </button>
+              </SignUpButton>
+            </li>
+          </ul>
+        </SignedOut>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;

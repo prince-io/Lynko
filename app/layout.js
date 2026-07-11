@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import GSAPRegistry from "@/components/shared/GSAPRegistry";
 import {
   Inter,
   Poppins,
@@ -88,7 +89,7 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html
         lang="en"
-        data-theme="cupcake"
+        data-theme="emerald"
         className={`
           ${inter.variable}
           ${poppins.variable}
@@ -103,6 +104,7 @@ export default function RootLayout({ children }) {
         `}
       >
         <body className="bg-grid min-h-screen flex flex-col">
+          <GSAPRegistry />
           <main className="flex-1">{children}</main>
         </body>
       </html>
