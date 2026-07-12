@@ -1,6 +1,12 @@
 "use client";
 
-import { HomeIcon, UserIcon, LinkIcon, PaletteIcon } from "@/components/icons";
+import {
+  HomeIcon,
+  UserIcon,
+  LinkIcon,
+  PaletteIcon,
+  AnalyticsIcon,
+} from "@/components/icons";
 
 const menuItems = [
   {
@@ -22,6 +28,11 @@ const menuItems = [
     id: "Appearance",
     label: "Appearance",
     icon: <PaletteIcon w={20} h={20} className="stroke-current" />,
+  },
+  {
+    id: "Analytics",
+    label: "Analytics",
+    icon: <AnalyticsIcon w={20} h={20} className="stroke-current" />,
   },
 ];
 

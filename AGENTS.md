@@ -127,7 +127,7 @@ No test command exists.
 | `/` | public | Landing page; redirects authed users to `/dashboard` |
 | `/[username]` | public | Client component calls `GET /api/public/[username]`, 404 → `/404` |
 | `/dashboard` | required | Server layout creates User doc on first visit (auto-generates username) |
-| `/dashboard/*` | required | Four client-side tabs: Home, Profile, Links, Appearance |
+| `/dashboard/*` | required | Five client-side tabs: Home, Profile, Links, Appearance, Analytics |
 
 ### API
 
@@ -149,7 +149,7 @@ No test command exists.
 - **Links tab**: Uses `@dnd-kit` with vertical-axis drag (x clamped to 0). `clientId` (UUID) for sortable identity, `_id` for server ops. "Save All" iterates: PUT existing links, POST new ones, DELETE removed.
 - **Appearance tab**: File has old commented-out version at top (~520 lines) and active version below (~1050 lines). Only edit the bottom `export default`.
 - **Profile tab**: `checkUsername()` calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`. Validates alphanumeric and checks uniqueness.
-- **Home tab**: Quick Action cards show placeholder content ("Card Title", generic lorem ipsum) — not yet wired to real data.
+- **Home tab**: Overview cards fetch all-time data from `/api/analytics/overview?period=all` (page views, link clicks, top link). Quick Action cards navigate to the other four tabs.
 
 ### Design defaults
 

@@ -28,6 +28,7 @@ Owns the Links tab of the authenticated dashboard.
 
 - `LinkPair` propagates changes via `onSave(clientId, linkObject)` — it does not mutate links state directly
 - `hasEmptyLinks` blocks "Save All" when any link has empty title or URL
+- While links are being fetched, 3 skeleton cards are shown using `animate-pulse` — mimics the LinkPair layout
 
 ## Verification
 

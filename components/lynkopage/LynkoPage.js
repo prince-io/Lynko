@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Share, LogoMono } from "@/components/icons";
+import LynkoLinkTracker from "../analytics/LynkoLinkTracker";
 
-const LynkoPage = ({ user, links, design }) => {
+const LynkoPage = ({ user, links, design, userId }) => {
   const [lynko, setLynko] = useState(
     `${process.env.NEXT_PUBLIC_APP_URL}/${user.username}`,
   );
@@ -107,15 +108,16 @@ const LynkoPage = ({ user, links, design }) => {
 
           <div className="flex flex-col gap-4 md:gap-5 w-full">
             {links.map((link, index) => (
-              <a
+              <LynkoLinkTracker
                 href={link.url || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
+                userId={userId}
+                linkId={link._id}
+                title={link.title}
                 key={index}
                 className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} text-accent-content border-4 transition-transform duration-200 hover:scale-105`}
               >
                 {link.title || "Untitled"}
-              </a>
+              </LynkoLinkTracker>
             ))}
           </div>
 

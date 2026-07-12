@@ -23,3 +23,4 @@ export { default as DragHandle } from "./DragHandle";
 export { default as Upload } from "./Upload";
 export { default as ErrorIcon } from "./ErrorIcon";
 export { default as SuccessCheck } from "./SuccessCheck";
+export { default as AnalyticsIcon } from "./AnalyticsIcon";

@@ -30,6 +30,30 @@ export default function LynkoPageWrapper() {
     fetchPublicPage();
   }, [username, router]);
 
+  useEffect(() => {
+    if (!data?.user?.clerkUserId) return;
+
+    const metadata = {
+      referrer: document.referrer || "",
+      device:
+        window.innerWidth < 768
+          ? "mobile"
+          : window.innerWidth < 1024
+            ? "tablet"
+            : "desktop",
+    };
+
+    fetch("/api/analytics/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        eventType: "page_view",
+        userId: data.user.clerkUserId,
+        metadata,
+      }),
+    }).catch(() => {});
+  }, [data]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-lg opacity-70">
@@ -42,7 +66,12 @@ export default function LynkoPageWrapper() {
 
   return (
     <div className="min-h-screen">
-      <LynkoPage user={data.user} links={data.links} design={data.design} />
+      <LynkoPage
+        user={data.user}
+        links={data.links}
+        design={data.design}
+        userId={data.user.clerkUserId}
+      />
     </div>
   );
 }

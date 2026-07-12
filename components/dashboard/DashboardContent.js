@@ -4,8 +4,9 @@ import HomeTab from "../home/HomeTab";
 import ProfileTab from "../profile/ProfileTab";
 import LinksTab from "../links/LinksTab";
 import AppearanceTab from "../appearance/AppearanceTab";
+import AnalyticsTab from "../analytics/AnalyticsTab";
 
-const VALID_TABS = ["Home", "Profile", "Links", "Appearance"];
+const VALID_TABS = ["Home", "Profile", "Links", "Appearance", "Analytics"];
 
 export default function DashboardContent({
   activeTab,
@@ -33,6 +34,7 @@ export default function DashboardContent({
             setActiveTab={setActiveTab}
           />
         )}
+        {activeTab === "Analytics" && <AnalyticsTab />}
         {!VALID_TABS.includes(activeTab) && (
           <p className="text-center text-gray-500">
             Select a tab from the menu

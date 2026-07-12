@@ -60,6 +60,7 @@ const LinksTab = ({ user, setUser }) => {
   const [links, setLinks] = useState([]);
   const [deletedIds, setDeletedIds] = useState([]);
 
+  const [linksLoading, setLinksLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [display, setDisplay] = useState(false);
   const [mssg, setMssg] = useState({});
@@ -82,16 +83,22 @@ const LinksTab = ({ user, setUser }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/links");
-      const data = await res.json();
+      try {
+        const res = await fetch("/api/links");
+        const data = await res.json();
 
-      const linksArray = data.map((link) => ({
-        ...link,
-        clientId: generateUUID(),
-      }));
+        const linksArray = data.map((link) => ({
+          ...link,
+          clientId: generateUUID(),
+        }));
 
-      setInitialLinks(linksArray);
-      setLinks(linksArray);
+        setInitialLinks(linksArray);
+        setLinks(linksArray);
+      } catch {
+        // silently fail
+      } finally {
+        setLinksLoading(false);
+      }
     })();
   }, []);
 
@@ -297,33 +304,65 @@ const LinksTab = ({ user, setUser }) => {
 
         <div className="flex justify-center w-full">
           <div className="w-full max-w-7xl">
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-              modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
-            >
-              <SortableContext
-                items={links.map((link) => link.clientId)}
-                strategy={verticalListSortingStrategy}
+            {linksLoading ? (
+              <div className="flex flex-col items-stretch gap-4 md:gap-6 my-4 md:my-6">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="relative flex justify-between items-center w-full bg-base-100 rounded-2xl p-4 animate-pulse"
+                  >
+                    <div className="h-8 w-8 bg-base-300 rounded-full" />
+                    <div className="divider divider-primary divider-horizontal hidden md:flex" />
+                    <div className="flex flex-col md:flex-row md:justify-between gap-4 ml-2 md:mx-4 flex-1">
+                      <div className="flex flex-col md:flex-row md:gap-12 flex-1">
+                        <div className="flex-1 mb-2">
+                          <div className="h-4 w-20 bg-base-300 rounded mb-2" />
+                          <div className="h-10 bg-base-300 rounded" />
+                        </div>
+                        <div className="flex-1 mb-2">
+                          <div className="h-4 w-20 bg-base-300 rounded mb-2" />
+                          <div className="h-10 bg-base-300 rounded" />
+                        </div>
+                      </div>
+                      <div className="flex gap-3 md:gap-6 my-auto">
+                        <div className="h-10 w-10 bg-base-300 rounded-lg" />
+                        <div className="h-10 w-10 bg-base-300 rounded-lg" />
+                      </div>
+                    </div>
+                    <div className="divider divider-primary divider-horizontal hidden md:flex" />
+                    <div className="h-7 w-7 bg-base-300 rounded mx-2" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+                modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
               >
-                <div className="flex flex-col items-stretch gap-4 md:gap-6 my-4 md:my-6">
-                  {links.map((link, index) => (
-                    <SortableLink key={link.clientId} link={link}>
-                      {({ attributes, listeners }) => (
-                        <LinkPair
-                          index={index + 1}
-                          initialValue={link}
-                          onSave={(value) => saveLink(link.clientId, value)}
-                          onDelete={() => removeLink(link.clientId)}
-                          dragHandleProps={{ ...attributes, ...listeners }}
-                        />
-                      )}
-                    </SortableLink>
-                  ))}
-                </div>
-              </SortableContext>
-            </DndContext>
+                <SortableContext
+                  items={links.map((link) => link.clientId)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div className="flex flex-col items-stretch gap-4 md:gap-6 my-4 md:my-6">
+                    {links.map((link, index) => (
+                      <SortableLink key={link.clientId} link={link}>
+                        {({ attributes, listeners }) => (
+                          <LinkPair
+                            index={index + 1}
+                            initialValue={link}
+                            onSave={(value) => saveLink(link.clientId, value)}
+                            onDelete={() => removeLink(link.clientId)}
+                            dragHandleProps={{ ...attributes, ...listeners }}
+                          />
+                        )}
+                      </SortableLink>
+                    ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
+            )}
           </div>
         </div>
       </div>

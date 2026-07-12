@@ -8,8 +8,8 @@ Owns the two dashboard infrastructure components that manage layout and tab rout
 
 | Component | Purpose |
 |-----------|---------|
-| `DashboardWrapper` | Client component managing `activeTab` state (Home/Profile/Links/Appearance), renders Navbar + DashboardContent + Footer |
-| `DashboardContent` | Routes `activeTab` to the corresponding feature component in `home/`, `profile/`, `links/`, `appearance/` |
+| `DashboardWrapper` | Client component managing `activeTab` state (Home/Profile/Links/Appearance/Analytics), renders Navbar + DashboardContent + Footer |
+| `DashboardContent` | Routes `activeTab` to the corresponding feature component in `home/`, `profile/`, `links/`, `appearance/`, `analytics/` |
 
 ## Local Contracts
 

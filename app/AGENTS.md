@@ -28,6 +28,10 @@ Owns all route handlers, API endpoints, layout, and global styles.
 | `app/api/links/route.js` | GET/POST | List/create links |
 | `app/api/links/[id]/route.js` | PUT/DELETE | Update/delete link (scoped to owning user) |
 | `app/api/designs/route.js` | GET/POST | Read (upserts default), save design customization |
+| `app/api/analytics/track/route.js` | POST | Public | Record page_view or link_click event |
+| `app/api/analytics/overview/route.js` | GET | Required | Total views, clicks, top links summary |
+| `app/api/analytics/timeline/route.js` | GET | Required | Time-bucketed data for line chart |
+| `app/api/analytics/distribution/route.js` | GET | Required | Per-link click breakdown for pie chart |
 
 ### API quirks
 
@@ -37,6 +41,8 @@ Owns all route handlers, API endpoints, layout, and global styles.
 - `POST /api/users` (avatar) uses `formData` with a `file` field, uploads to Cloudinary folder `lynko/avatars`
 - `app/dashboard/page.js` returns empty fragment — all UI is in `DashboardWrapper` client component
 - `app/dashboard/layout.js` auto-generates random usernames like `user_<random12chars>`
+- Analytics API routes accept period params: `1h`, `1d`, `7d`, `30d`, `all`
+- `DELETE /api/links/[id]` cascades — deletes associated link_click analytics records when a link is removed
 
 ## Work Guidance
 

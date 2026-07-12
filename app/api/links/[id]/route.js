@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Lynko from "@/models/Lynko";
+import Analytics from "@/models/Analytics";
 
 export async function PUT(req, { params }) {
   const { userId } = await auth();
@@ -46,6 +47,12 @@ export async function DELETE(req, { params }) {
     _id: ID,
     userId,
   });
+
+  if (!deleted) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  await Analytics.deleteMany({ linkId: ID, eventType: "link_click" });
 
   return NextResponse.json({ success: true });
 }

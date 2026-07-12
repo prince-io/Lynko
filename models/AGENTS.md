@@ -2,7 +2,7 @@
 
 ## Ownership
 
-Owns all three Mongoose models: `User`, `Lynko`, `Design`.
+Owns all four Mongoose models: `User`, `Lynko`, `Design`, `Analytics`.
 
 ## Local Contracts
 
@@ -33,11 +33,21 @@ Owns all three Mongoose models: `User`, `Lynko`, `Design`.
 - `customization` (Mixed) — default object with theme, font, size, radius, border, avatar, background, buttonStyle, buttonRadius
 - timestamps: true
 
+**Analytics**
+- `userId` (required, indexed) — Clerk user ID of the profile owner whose page/link was visited
+- `linkId` (ObjectId, ref 'Lynko', default null, indexed) — null for page_view, populated for link_click
+- `eventType` (required, enum ['link_click', 'page_view'], indexed)
+- `metadata` — object with `referrer`, `country`, `device` (all String, default "")
+- `timestamp` (Date, default Date.now, indexed) — event occurrence time
+- No `timestamps: true` — analytics events are immutable, no need for `createdAt`/`updatedAt`
+- 3 additional indexes: compound `(userId, linkId, -timestamp)`, compound `(userId, eventType, -timestamp)`, TTL on `timestamp` (90 days)
+
 ## Work Guidance
 
 - Never rename `Lynko.userId` to `clerkUserId` — the Lynko model intentionally uses a different field name
 - When adding fields to `Design.customization`, update both the model default and the API route default simultaneously
 - Default value shapes are duplicated — check both locations when editing defaults
+- **Analytics privacy**: Never store IP addresses, full User-Agent strings, email addresses, or any PII in `metadata`. Only referrer URL, country, and device type are permitted.
 ## Verification
 
 No model-specific tests exist. Verify manually against the root contracts.

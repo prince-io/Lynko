@@ -21,6 +21,7 @@ Owns all React components organized by feature folder.
 | `profile/` | Dashboard Profile tab (ProfileTab) |
 | `links/` | Dashboard Links tab (LinksTab, LinkPair) |
 | `appearance/` | Dashboard Appearance tab (AppearanceTab, AppearancePreview, 9 customization pickers) |
+| `analytics/` | Analytics tab (AnalyticsTab, AnalyticsWrapper, charts/) |
 | `shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry) |
 | `icons/` | Importable SVG icon components, each accepting `{ w, h, className }` props |
 
@@ -55,5 +56,6 @@ No component-specific tests exist.
 | `components/profile/` | Dashboard Profile tab (ProfileTab) |
 | `components/links/` | Dashboard Links tab (LinksTab + LinkPair) |
 | `components/appearance/` | Appearance tab (AppearanceTab + AppearancePreview + 9 pickers) |
+| `components/analytics/` | Analytics tab (AnalyticsTab, AnalyticsWrapper, charts/) |
 | `components/shared/` | Reusable UI utilities |
-| `components/icons/` | Reusable SVG icon components (25 icons, each accepts `{ w, h, className }`) |
+| `components/icons/` | Reusable SVG icon components (26 icons, each accepts `{ w, h, className }`) |

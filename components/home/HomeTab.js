@@ -30,6 +30,8 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
     buttonRadius: "rounded",
   });
 
+  const [overview, setOverview] = useState(null);
+
   const [display, setDisplay] = useState(false);
   const [mssg, setMssg] = useState({});
   const [toast, setToast] = useState(false);
@@ -53,6 +55,16 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
       const res = await fetch("/api/designs");
       const data = await res.json();
       setDesign(data);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/analytics/overview?period=all");
+      if (res.ok) {
+        const data = await res.json();
+        setOverview(data);
+      }
     })();
   }, []);
 
@@ -179,25 +191,44 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
             <div className="flex gap-4">
               <div className="card card-border border-2 flex-1">
                 <div className="card-body">
-                  <Eye w={32} h={32} className="w-12 h-12 fill-current" />
-                  <h2 className="text-2xl">Card Title</h2>
-                  <p>Views</p>
+                  <div className="flex items-center gap-2">
+                    <Eye w={32} h={32} className="w-10 h-10 fill-current" />
+                    <p className="text-lg font-medium">Page Views</p>
+                  </div>
+                  <h2 className="text-3xl">{overview?.totalPageViews ?? 0}</h2>
                 </div>
               </div>
 
               <div className="card card-border border-2 flex-1">
                 <div className="card-body">
-                  <Lightbulb w={24} h={24} className="w-12 h-12 fill-current" />
-                  <h2 className="text-2xl">Card Title</h2>
-                  <p>Link Clicks</p>
+                  <div className="flex items-center gap-2">
+                    <Lightbulb
+                      w={24}
+                      h={24}
+                      className="w-10 h-10 fill-current"
+                    />
+                    <p className="text-lg font-medium">Link Clicks</p>
+                  </div>
+                  <h2 className="text-3xl">{overview?.totalLinkClicks ?? 0}</h2>
                 </div>
               </div>
 
-              <div className="card card-border border-2 flex-1">
-                <div className="card-body">
-                  <TrendUp w={24} h={24} className="w-12 h-12 fill-current" />
-                  <h2 className="text-2xl">Card Title</h2>
-                  <p>CTR</p>
+              <div className="card card-border border-2 flex-1 min-w-0">
+                <div className="card-body overflow-hidden">
+                  <div className="flex items-center gap-2">
+                    <TrendUp
+                      w={24}
+                      h={24}
+                      className="w-10 h-10 fill-current shrink-0"
+                    />
+                    <p className="text-lg font-medium truncate">Top Link</p>
+                  </div>
+                  <h2
+                    className="text-2xl font-medium truncate"
+                    title={overview?.topLinks?.[0]?.title}
+                  >
+                    {overview?.topLinks?.[0]?.title ?? "—"}
+                  </h2>
                 </div>
               </div>
             </div>
@@ -207,14 +238,16 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
             <h1 className="text-sm md:text-2xl mb-6">Quick Actions</h1>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="card bg-secondary text-secondary-content hover:scale-102 transition-transform duration-200">
+              <div
+                className="card bg-secondary text-secondary-content cursor-pointer hover:scale-102 transition-transform duration-200"
+                onClick={() => setActiveTab("Profile")}
+              >
                 <div className="card-body">
                   <h2 className="text-2xl">Profile</h2>
 
                   <div className="flex justify-between">
                     <p className="flex-4">
-                      A card component has a figure, a body part, and inside
-                      body there are title and actions parts
+                      Update your username, bio, and profile picture.
                     </p>
                     <Arrow
                       w={24}
@@ -225,14 +258,16 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                 </div>
               </div>
 
-              <div className="card bg-secondary text-secondary-content hover:scale-102 transition-transform duration-200">
+              <div
+                className="card bg-secondary text-secondary-content cursor-pointer hover:scale-102 transition-transform duration-200"
+                onClick={() => setActiveTab("Links")}
+              >
                 <div className="card-body">
-                  <h2 className="text-2xl">Profile</h2>
+                  <h2 className="text-2xl">Links</h2>
 
                   <div className="flex justify-between">
                     <p className="flex-4">
-                      A card component has a figure, a body part, and inside
-                      body there are title and actions parts
+                      Add, edit, or reorder your link collection.
                     </p>
                     <Arrow
                       w={24}
@@ -243,14 +278,16 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                 </div>
               </div>
 
-              <div className="card bg-secondary text-secondary-content hover:scale-102 transition-transform duration-200">
+              <div
+                className="card bg-secondary text-secondary-content cursor-pointer hover:scale-102 transition-transform duration-200"
+                onClick={() => setActiveTab("Appearance")}
+              >
                 <div className="card-body">
-                  <h2 className="text-2xl">Profile</h2>
+                  <h2 className="text-2xl">Appearance</h2>
 
                   <div className="flex justify-between">
                     <p className="flex-4">
-                      A card component has a figure, a body part, and inside
-                      body there are title and actions parts
+                      Customize your theme, fonts, buttons, and layout.
                     </p>
                     <Arrow
                       w={24}
@@ -261,14 +298,16 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                 </div>
               </div>
 
-              <div className="card bg-secondary text-secondary-content hover:scale-102 transition-transform duration-200">
+              <div
+                className="card bg-secondary text-secondary-content cursor-pointer hover:scale-102 transition-transform duration-200"
+                onClick={() => setActiveTab("Analytics")}
+              >
                 <div className="card-body">
-                  <h2 className="text-2xl">Profile</h2>
+                  <h2 className="text-2xl">Analytics</h2>
 
                   <div className="flex justify-between">
                     <p className="flex-4">
-                      A card component has a figure, a body part, and inside
-                      body there are title and actions parts
+                      Track page views, link clicks, and top performers.
                     </p>
                     <Arrow
                       w={24}

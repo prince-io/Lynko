@@ -10,7 +10,7 @@ Owns all reusable SVG icon components used across the app.
 - Components render inline SVG elements with `width`, `height`, `viewBox`, and `className` set from props
 - All components are default exports, re-exported from `index.js`
 
-### Exports (25 icons)
+### Exports (26 icons)
 
 | Export | File |
 |--------|------|
@@ -39,6 +39,7 @@ Owns all reusable SVG icon components used across the app.
 | `Upload` | `Upload.js` |
 | `ErrorIcon` | `ErrorIcon.js` |
 | `SuccessCheck` | `SuccessCheck.js` |
+| `AnalyticsIcon` | `AnalyticsIcon.js` |
 
 ## Verification
 

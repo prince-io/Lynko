@@ -16,6 +16,7 @@ Owns the user-facing public Lynko page rendered at `/{username}`.
 - `LynkoPageWrapper` uses `useParams()` to read `username` (no prop needed from server component)
 - Both use `"use client"` (hooks for data fetching and browser API)
 - `LynkoPage` mirrors `AppearancePreview` and `LivePreview` — changes to the layout may need applying to all three
+- `LynkoPage` now uses `LynkoLinkTracker` for each link (click tracking) and `LynkoPageWrapper` fires a `page_view` event on mount
 
 ## Verification
 
