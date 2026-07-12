@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Upload, ErrorIcon, SuccessCheck } from "@/components/icons";
 
 const ProfileTab = ({ user, setUser }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -164,22 +165,7 @@ const ProfileTab = ({ user, setUser }) => {
                 disabled={loading == "profilePic"}
                 onClick={handleUpload}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1.6em"
-                  height="1.6em"
-                  viewBox="0 0 24 24"
-                >
-                  <title xmlns="">upload</title>
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 9l5-5l5 5m-5-5v12"
-                  />
-                </svg>
+                <Upload w="1.6em" h="1.6em" className="stroke-current" />
               </button>
             </div>
           </div>
@@ -214,35 +200,17 @@ const ProfileTab = ({ user, setUser }) => {
                   >
                     {mssg &&
                       (error ? (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                          role="img"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M12 17q.425 0 .713-.288T13 16q0-.425-.288-.713T12 15q-.425 0-.713.288T11 16q0 .425.288.713T12 17Zm0 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Zm0-9q.425 0 .713-.288T13 12V8q0-.425-.288-.713T12 7q-.425 0-.713.288T11 8v4q0 .425.288.713T12 13Z"
-                          />
-                        </svg>
+                        <ErrorIcon
+                          w={24}
+                          h={24}
+                          className="w-6 h-6 fill-current"
+                        />
                       ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                          role="img"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m3.707-9.293l-4.003 4a1 1 0 0 1-1.415 0l-1.997-2a1 1 0 1 1 1.416-1.414l1.29 1.293l3.295-3.293a1 1 0 0 1 1.414 1.414"
-                          />
-                        </svg>
+                        <SuccessCheck
+                          w={16}
+                          h={16}
+                          className="w-6 h-6 fill-current"
+                        />
                       ))}
                     {mssg}
                   </p>

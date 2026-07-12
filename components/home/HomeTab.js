@@ -4,6 +4,14 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import LivePreview from "./LivePreview";
 import { generateUUID } from "@/lib/uuid";
+import {
+  CopyLink,
+  ExternalLink,
+  Eye,
+  Lightbulb,
+  TrendUp,
+  Arrow,
+} from "@/components/icons";
 
 const HomeTab = ({ user, setUser, setActiveTab }) => {
   const [lynko, setLynko] = useState(
@@ -136,25 +144,11 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                     className="btn btn-sm md:btn-md btn-secondary"
                     onClick={handleCopy}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      role="img"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeMiterlimit="10"
-                        strokeWidth="1.5"
-                        d="M6 15h-.6C4.07 15 3 13.93 3 12.6V5.4C3 4.07 4.07 3 5.4 3h7.2C13.93 3 15 4.07 15 5.4V6m-3.6 3h7.2a2.4 2.4 0 0 1 2.4 2.4v7.2a2.4 2.4 0 0 1-2.4 2.4h-7.2A2.4 2.4 0 0 1 9 18.6v-7.2A2.4 2.4 0 0 1 11.4 9"
-                      ></path>
-                    </svg>
+                    <CopyLink
+                      w={24}
+                      h={24}
+                      className="w-6 h-6 stroke-current"
+                    />
 
                     <p>Copy Link</p>
                   </button>
@@ -165,24 +159,11 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                     className="link link-hover"
                   >
                     <button className="btn btn-sm md:btn-md btn-secondary">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        role="img"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          fill="none"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4m-8-2l8-8m0 0v5m0-5h-5"
-                        />
-                      </svg>
+                      <ExternalLink
+                        w={24}
+                        h={24}
+                        className="w-6 h-6 stroke-current"
+                      />
 
                       <p>Open Link</p>
                     </button>
@@ -198,24 +179,7 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
             <div className="flex gap-4">
               <div className="card card-border border-2 flex-1">
                 <div className="card-body">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    role="img"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    className="w-12 h-12"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M30.94 15.66A16.69 16.69 0 0 0 16 5A16.69 16.69 0 0 0 1.06 15.66a1 1 0 0 0 0 .68A16.69 16.69 0 0 0 16 27a16.69 16.69 0 0 0 14.94-10.66a1 1 0 0 0 0-.68M16 25c-5.3 0-10.9-3.93-12.93-9C5.1 10.93 10.7 7 16 7s10.9 3.93 12.93 9C26.9 21.07 21.3 25 16 25"
-                    />
-                    <path
-                      fill="currentColor"
-                      d="M16 10a6 6 0 1 0 6 6a6 6 0 0 0-6-6m0 10a4 4 0 1 1 4-4a4 4 0 0 1-4 4"
-                    />
-                  </svg>
+                  <Eye w={32} h={32} className="w-12 h-12 fill-current" />
                   <h2 className="text-2xl">Card Title</h2>
                   <p>Views</p>
                 </div>
@@ -223,20 +187,7 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
 
               <div className="card card-border border-2 flex-1">
                 <div className="card-body">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    role="img"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    className="w-12 h-12"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M10.293 10.293a1 1 0 0 1 1.11-.208l10 4.4a1.001 1.001 0 0 1-.15 1.882l-3.87 1.015l-1.016 3.872a1 1 0 0 1-1.882.148l-4.4-10a1 1 0 0 1 .208-1.109m-3.948 5.946a1 1 0 1 1 1.414 1.414l-2.121 2.121a1 1 0 0 1-1.414-1.414zm-1.34-5.244a1 1 0 1 1 0 2h-3a1 1 0 0 1 0-2zm-.781-6.77a1 1 0 0 1 1.414 0l2.121 2.122A1 1 0 0 1 6.345 7.76L4.224 5.64a1 1 0 0 1 0-1.414m14.142-.006a1 1 0 1 1 1.413 1.414l-2.12 2.12a1 1 0 0 1-1.415-1.413zM11 5V2a1 1 0 0 1 2 0v3a1 1 0 0 1-2 0"
-                    />
-                  </svg>
+                  <Lightbulb w={24} h={24} className="w-12 h-12 fill-current" />
                   <h2 className="text-2xl">Card Title</h2>
                   <p>Link Clicks</p>
                 </div>
@@ -244,20 +195,7 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
 
               <div className="card card-border border-2 flex-1">
                 <div className="card-body">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    role="img"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    className="w-12 h-12"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M21.92 6.62a1 1 0 0 0-.54-.54A1 1 0 0 0 21 6h-5a1 1 0 0 0 0 2h2.59L13 13.59l-3.29-3.3a1 1 0 0 0-1.42 0l-6 6a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0L9 12.41l3.29 3.3a1 1 0 0 0 1.42 0L20 9.41V12a1 1 0 0 0 2 0V7a1 1 0 0 0-.08-.38"
-                    />
-                  </svg>
+                  <TrendUp w={24} h={24} className="w-12 h-12 fill-current" />
                   <h2 className="text-2xl">Card Title</h2>
                   <p>CTR</p>
                 </div>
@@ -278,45 +216,11 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                       A card component has a figure, a body part, and inside
                       body there are title and actions parts
                     </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      role="img"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      className="w-10 h-10 flex-1"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      >
-                        <path strokeDasharray="20" d="M3 12h17.5">
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            dur="0.3s"
-                            values="20;0"
-                          ></animate>
-                        </path>
-                        <path
-                          strokeDasharray="12"
-                          strokeDashoffset="12"
-                          d="M21 12l-7 7M21 12l-7 -7"
-                        >
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            begin="0.3s"
-                            dur="0.2s"
-                            to="0"
-                          ></animate>
-                        </path>
-                      </g>
-                    </svg>
+                    <Arrow
+                      w={24}
+                      h={24}
+                      className="w-10 h-10 flex-1 fill-current"
+                    />
                   </div>
                 </div>
               </div>
@@ -330,45 +234,11 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                       A card component has a figure, a body part, and inside
                       body there are title and actions parts
                     </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      role="img"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      className="w-10 h-10 flex-1"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      >
-                        <path strokeDasharray="20" d="M3 12h17.5">
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            dur="0.3s"
-                            values="20;0"
-                          ></animate>
-                        </path>
-                        <path
-                          strokeDasharray="12"
-                          strokeDashoffset="12"
-                          d="M21 12l-7 7M21 12l-7 -7"
-                        >
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            begin="0.3s"
-                            dur="0.2s"
-                            to="0"
-                          ></animate>
-                        </path>
-                      </g>
-                    </svg>
+                    <Arrow
+                      w={24}
+                      h={24}
+                      className="w-10 h-10 flex-1 fill-current"
+                    />
                   </div>
                 </div>
               </div>
@@ -382,45 +252,11 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                       A card component has a figure, a body part, and inside
                       body there are title and actions parts
                     </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      role="img"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      className="w-10 h-10 flex-1"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      >
-                        <path strokeDasharray="20" d="M3 12h17.5">
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            dur="0.3s"
-                            values="20;0"
-                          ></animate>
-                        </path>
-                        <path
-                          strokeDasharray="12"
-                          strokeDashoffset="12"
-                          d="M21 12l-7 7M21 12l-7 -7"
-                        >
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            begin="0.3s"
-                            dur="0.2s"
-                            to="0"
-                          ></animate>
-                        </path>
-                      </g>
-                    </svg>
+                    <Arrow
+                      w={24}
+                      h={24}
+                      className="w-10 h-10 flex-1 fill-current"
+                    />
                   </div>
                 </div>
               </div>
@@ -434,45 +270,11 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
                       A card component has a figure, a body part, and inside
                       body there are title and actions parts
                     </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      role="img"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      className="w-10 h-10 flex-1"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      >
-                        <path strokeDasharray="20" d="M3 12h17.5">
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            dur="0.3s"
-                            values="20;0"
-                          ></animate>
-                        </path>
-                        <path
-                          strokeDasharray="12"
-                          strokeDashoffset="12"
-                          d="M21 12l-7 7M21 12l-7 -7"
-                        >
-                          <animate
-                            fill="freeze"
-                            attributeName="stroke-dashoffset"
-                            begin="0.3s"
-                            dur="0.2s"
-                            to="0"
-                          ></animate>
-                        </path>
-                      </g>
-                    </svg>
+                    <Arrow
+                      w={24}
+                      h={24}
+                      className="w-10 h-10 flex-1 fill-current"
+                    />
                   </div>
                 </div>
               </div>

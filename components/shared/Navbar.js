@@ -8,8 +8,8 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import ThemeButton from "./ThemeButton";
-import Image from "next/image";
 import Menu from "./Menu";
+import { Hamburger, Logo } from "@/components/icons";
 
 const Navbar = ({ activeTab, setActiveTab }) => {
   return (
@@ -26,29 +26,10 @@ const Navbar = ({ activeTab, setActiveTab }) => {
             htmlFor="navbar-1-toggle"
             className="btn btn-ghost lg:hidden text-base-100"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+            <Hamburger w={20} h={20} className="stroke-current" />
           </label>
           <h1 className="flex justify-center items-center gap-2 text-xl md:text-3xl font-semibold">
-            <Image
-              src="/logo.svg"
-              alt="App logo"
-              width={56}
-              height={56}
-              className="w-8 h-8 md:w-12 md:h-12"
-            />
+            <Logo className="w-8 h-8 md:w-12 md:h-12" />
             <span className="text-base-100">LynkO</span>
           </h1>
         </div>

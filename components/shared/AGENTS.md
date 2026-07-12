@@ -1,10 +1,14 @@
 # components/shared — Reusable UI
 
-## Ownership
+## Purpose
 
 Owns shared UI components used across multiple pages.
 
-## Components
+## Ownership
+
+Owns the shared UI feature domain.
+
+## Local Contracts
 
 | Component | Used by | Purpose |
 |-----------|---------|---------|
@@ -13,6 +17,10 @@ Owns shared UI components used across multiple pages.
 | `Menu` | Landing page, Dashboard | Sidebar navigation menu |
 | `ThemeButton` | Landing page | Theme toggle between light (emerald) and dark (night) |
 | `GSAPRegistry` | Root layout (`app/layout.js`) | GSAP animation registration |
+
+## Work Guidance
+
+None — these components are stable and rarely change.
 
 ## Verification
 

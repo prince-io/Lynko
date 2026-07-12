@@ -22,17 +22,11 @@ Owns all React components organized by feature folder.
 | `links/` | Dashboard Links tab (LinksTab, LinkPair) |
 | `appearance/` | Dashboard Appearance tab (AppearanceTab, AppearancePreview, 9 customization pickers) |
 | `shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry) |
+| `icons/` | Importable SVG icon components, each accepting `{ w, h, className }` props |
 
-### Dashboard tab quirks (commented-out code)
+### Dashboard tab quirks
 
-Appearance.js, Profile.js, and Home.js each have stale commented-out versions at the top, followed by the active component:
-
-| File | Dead lines | Active starts at |
-|------|-----------|-----------------|
-| `appearance/AppearanceTab.js` | 1–518 | line 519 |
-| `profile/ProfileTab.js` | 1–241 | line 242 |
-| `home/HomeTab.js` | 1–193 | line 194 |
-| `links/LinksTab.js` | none | line 1 |
+All dashboard tab files have had their stale commented-out old versions removed. The files are now clean with only active code.
 
 ### Preview component similarities
 
@@ -44,7 +38,7 @@ Appearance.js, Profile.js, and Home.js each have stale commented-out versions at
 ## Work Guidance
 
 - The three preview-like components (`LynkoPage`, `LivePreview`, `AppearancePreview`) are highly repetitive — changes to the layout likely need to be applied across all three
-- Dashboard tab files have commented-out old versions at the top — when searching/editing, scroll past the dead code to find the active component
+- Dashboard tab files previously had commented-out old versions at the top — those have been cleaned up, files now contain only active code
 - Appearance customization children in `appearance/` each receive a single value + onChange callback
 
 ## Verification
@@ -62,3 +56,4 @@ No component-specific tests exist.
 | `components/links/` | Dashboard Links tab (LinksTab + LinkPair) |
 | `components/appearance/` | Appearance tab (AppearanceTab + AppearancePreview + 9 pickers) |
 | `components/shared/` | Reusable UI utilities |
+| `components/icons/` | Reusable SVG icon components (25 icons, each accepts `{ w, h, className }`) |

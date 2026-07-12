@@ -13,7 +13,6 @@ Owns the Home tab of the authenticated dashboard.
 
 ## Quirks
 
-- `HomeTab.js` has ~192 lines of commented-out dead code at the top (lines 1–193). Only edit the active component starting at line 194.
 - Overview cards show placeholder content ("Card Title", generic lorem ipsum) — not yet wired to real data.
 - Quick Action cards in the active code have "Profile" as the card title but are labeled for different actions.
 

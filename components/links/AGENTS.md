@@ -16,7 +16,7 @@ Owns the Links tab of the authenticated dashboard.
 - Uses `@dnd-kit` for drag-and-drop with vertical-axis constraint (x clamped to 0)
 - `clientId` (UUID from `generateUUID()`) used for `@dnd-kit` sortable identity
 - `_id` (Mongoose) used for server API calls (PUT/DELETE)
-- `currentUser` is referenced but not used — `setUser` is passed as prop but never called
+- `setUser` is destructured from props in `LinksTab` but never called
 
 ### Save All flow
 

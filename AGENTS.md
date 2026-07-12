@@ -179,4 +179,4 @@ No tests exist. No verification framework. Run `npm run build` and `npm run lint
 | `components/shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry) |
 | `models/` | Mongoose schemas, field conventions, the clerkUserId/userId naming split |
 | `lib/` | Integrations: MongoDB connection caching, Cloudinary config, design option constants |
-| `public/` | Static assets (logo, default avatar, hero image) |
+| `public/` | Static assets (default avatar, hero image) |

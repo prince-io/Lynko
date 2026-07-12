@@ -19,7 +19,7 @@ Owns all route handlers, API endpoints, layout, and global styles.
 |------|------|-------|
 | `app/page.js` | Server | Landing page; "use client" inside redirects authed users to `/dashboard` |
 | `app/layout.js` | Server | Root layout: ClerkProvider, fonts, DaisyUI data-theme="emerald" |
-| `app/[username]/page.js` | Server | Public profile page; renders PreviewWrapper client component |
+| `app/[username]/page.js` | Server | Public profile page; renders LynkoPageWrapper client component |
 | `app/dashboard/layout.js` | Server | Creates User doc on first visit, auto-generates username |
 | `app/dashboard/page.js` | Server | Empty shell — UI rendered by DashboardWrapper |
 | `app/404/` | - | 404 error page |

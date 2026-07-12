@@ -8,14 +8,13 @@ Owns static files served at the root path.
 
 | File | Purpose |
 |------|---------|
-| `logo.svg` | App logo, referenced by Preview/LivePreview/AppearancePreview components |
 | `default.jpg` | Fallback avatar when user has no `profilePic` set |
 | `hero.jpg` | Landing page hero image |
 
 ## Work Guidance
 
 - Avatar fallback path is `/default.jpg` — used in image `src` when `user.profilePic` is falsy
-- Logo is referenced as `/logo.svg` with explicit width/height in next/Image components
+- Logo SVGs (`Logo.svg`, `Logo-mono.svg`) exist only as React components in `components/icons/` — not as static files
 
 ## Verification
 

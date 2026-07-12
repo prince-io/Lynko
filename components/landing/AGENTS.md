@@ -1,10 +1,14 @@
 # components/landing — Landing Page
 
-## Ownership
+## Purpose
 
 Owns all sections of the public landing page (`/`).
 
-## Components
+## Ownership
+
+Owns the landing page feature domain.
+
+## Local Contracts
 
 | Component | Purpose |
 |-----------|---------|
@@ -13,6 +17,10 @@ Owns all sections of the public landing page (`/`).
 | `About` | About section |
 | `Faq` | FAQ accordion section |
 | `Card` | Generic card component |
+
+## Work Guidance
+
+All components are presentational — no data fetching or auth logic.
 
 ## Verification
 
