@@ -6,7 +6,7 @@ export default function ButtonShapeRadio({ buttonRadius, onChange }) {
   return (
     <div className="space-y-6 bg-base-100 rounded-xl p-4 md:flex-3">
       <div className="space-y-3">
-        <legend className="fieldset-legend text-lg">Buttons Shape</legend>
+        <legend className="fieldset-legend md:text-lg">Buttons Shape</legend>
 
         <div className="flex flex-wrap gap-5 w-[90%]">
           {BTNRAD.map(({ label, value }) => (
@@ -17,11 +17,11 @@ export default function ButtonShapeRadio({ buttonRadius, onChange }) {
               <input
                 type="radio"
                 name="button-shape"
-                className="radio radio-secondary"
+                className="radio radio-sm md:radio-md radio-secondary"
                 checked={buttonRadius === value}
                 onChange={() => onChange(value)}
               />
-              <span>{label}</span>
+              <span className="text-sm md:text-base">{label}</span>
             </label>
           ))}
         </div>

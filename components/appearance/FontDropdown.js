@@ -5,7 +5,7 @@ import { FONT } from "@/lib/designOptions";
 export default function FontDropdown({ font, onChange }) {
   return (
     <div className="flex gap-4 items-center bg-base-100 rounded-xl p-4 md:flex-1">
-      <legend className="fieldset-legend text-lg">Font Family</legend>
+      <legend className="fieldset-legend md:text-lg">Font Family</legend>
 
       <div className="dropdown dropdown-end md:dropdown-start">
         <div tabIndex={0} role="button" className="btn btn-secondary m-1">
@@ -14,7 +14,7 @@ export default function FontDropdown({ font, onChange }) {
 
         <ul
           tabIndex={-1}
-          className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow"
+          className="dropdown-content menu bg-base-100 rounded-box z-10  p-2 shadow h-60 overflow-y-auto flex-row"
         >
           {FONT.map(({ name, value }) => (
             <li
@@ -25,7 +25,7 @@ export default function FontDropdown({ font, onChange }) {
                 font === value
                   ? "bg-secondary text-secondary-content rounded"
                   : ""
-              } hover:bg-secondary/20`}
+              } w-full`}
             >
               <a>{name}</a>
             </li>

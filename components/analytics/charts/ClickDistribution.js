@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 
 const COLORS = [
   "#6366f1",
@@ -98,17 +98,18 @@ export default function ClickDistribution() {
     fetchData();
   }, [fetchData]);
 
-  const chartData = links.map((link) => ({
+  const chartData = links.map((link, index) => ({
     name: link.title || "Untitled",
     value: link.clicks,
     linkId: link.linkId,
-    total: total, // Make sure total is passed here
+    total: total,
+    fill: COLORS[index % COLORS.length],
   }));
 
   return (
     <div className="bg-base-100 rounded-xl p-4 flex flex-col gap-4">
       <div className="flex items-center">
-        <h1 className="text-sm md:text-2xl">Click Distribution</h1>
+        <h1 className="text-base md:text-2xl">Click Distribution</h1>
       </div>
 
       {loading ? (
@@ -142,14 +143,7 @@ export default function ClickDistribution() {
                   label={renderLabel}
                   labelLine={false}
                   isAnimationActive={false}
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell
-                      key={entry.linkId}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
+                />
                 <Tooltip content={<CustomTooltip />} />
                 <CenterLabel total={total} />
               </PieChart>
@@ -170,7 +164,7 @@ export default function ClickDistribution() {
                       style={{ backgroundColor: COLORS[index % COLORS.length] }}
                     />
                     <span className="truncate max-w-28">{entry.name}</span>
-                    <span className="text-base-content/60 ml-auto">
+                    <span className="text-base-content ml-auto">
                       {percentage}%
                     </span>
                   </div>

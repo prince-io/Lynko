@@ -3,15 +3,19 @@
 import { useEffect, useState } from "react";
 
 const ThemeButton = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") === "night";
+    }
+    return false;
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "emerald";
 
     document.documentElement.setAttribute("data-theme", savedTheme);
-    setIsDark(savedTheme === "night");
-    setMounted(true);
+    setMounted(true); // eslint-disable-line react-hooks/set-state-in-effect
   }, []);
 
   const handleChange = (e) => {

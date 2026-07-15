@@ -107,7 +107,7 @@ const AppearanceTab = ({ user, setUser }) => {
     <div>
       {display && (
         <div className="toast toast-end z-3">
-          <div className={`alert text-lg ${mssg.type}`}>
+          <div className={`alert md:text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>
           </div>
         </div>
@@ -194,7 +194,7 @@ const AppearanceTab = ({ user, setUser }) => {
           </div>
         </div>
 
-        <div className="flex-4 w-[115%] md:w-full">
+        <div className="flex-4 w-full">
           <AppearancePreview user={user} links={links} design={design} />
         </div>
       </div>

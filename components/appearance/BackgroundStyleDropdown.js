@@ -6,7 +6,7 @@ import { Arrow } from "@/components/icons";
 export default function BackgroundStyleDropdown({ background, onChange }) {
   return (
     <div className="w-full md:w-1/2 flex gap-4 items-center bg-base-100 rounded-xl p-4">
-      <legend className="fieldset-legend text-lg">Background Style</legend>
+      <legend className="fieldset-legend md:text-lg">Background Style</legend>
       <div className="dropdown dropdown-end md:dropdown-start">
         <div tabIndex={0} role="button" className="btn btn-secondary m-1">
           {Object.values(BG).find((v) => v.className === background)?.label}
@@ -20,10 +20,14 @@ export default function BackgroundStyleDropdown({ background, onChange }) {
 
         <ul
           tabIndex={-1}
-          className="dropdown-content menu bg-base-100 rounded-box z-10 w-64 p-2 shadow"
+          className="dropdown-content menu bg-base-100 rounded-box z-10 w-64 p-2 shadow h-35 overflow-y-auto flex-row"
         >
           {Object.entries(BG).map(([key, { label, className, arrow }]) => (
-            <li key={key} onClick={() => onChange(className)}>
+            <li
+              key={key}
+              className="w-full"
+              onClick={() => onChange(className)}
+            >
               <a
                 className={`flex items-center ${
                   background === className

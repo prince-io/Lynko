@@ -6,7 +6,7 @@ export default function ButtonStyleRadio({ buttonStyle, onChange }) {
   return (
     <div className="space-y-6 bg-base-100 rounded-xl p-4 md:flex-5">
       <div className="space-y-3">
-        <legend className="fieldset-legend text-lg">Buttons Style</legend>
+        <legend className="fieldset-legend md:text-lg">Buttons Style</legend>
 
         <div className="flex flex-wrap gap-5 w-[90%]">
           {BTN.map(({ label, value }) => (
@@ -17,11 +17,11 @@ export default function ButtonStyleRadio({ buttonStyle, onChange }) {
               <input
                 type="radio"
                 name="button-style"
-                className="radio radio-secondary"
+                className="radio radio-sm md:radio-md radio-secondary"
                 checked={buttonStyle === value}
                 onChange={() => onChange(value)}
               />
-              <span>{label}</span>
+              <span className="text-sm md:text-base">{label}</span>
             </label>
           ))}
         </div>

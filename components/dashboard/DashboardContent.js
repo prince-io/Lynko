@@ -15,14 +15,18 @@ export default function DashboardContent({
   setUser,
 }) {
   return (
-    <div className="relative rounded-3xl p-6">
+    <div className="relative rounded-3xl p-4 md:p-6">
       <div className="absolute inset-0 bg-base-300 opacity-65 rounded-3xl"></div>
       <div className="relative z-10">
         {activeTab === "Home" && (
           <HomeTab user={user} setUser={setUser} setActiveTab={setActiveTab} />
         )}
         {activeTab === "Profile" && (
-          <ProfileTab user={user} setUser={setUser} setActiveTab={setActiveTab} />
+          <ProfileTab
+            user={user}
+            setUser={setUser}
+            setActiveTab={setActiveTab}
+          />
         )}
         {activeTab === "Links" && (
           <LinksTab user={user} setUser={setUser} setActiveTab={setActiveTab} />

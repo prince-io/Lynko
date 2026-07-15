@@ -37,7 +37,7 @@ const LinkPair = ({
   }
 
   return (
-    <div className="relative flex justify-between items-center w-full bg-base-100 rounded-2xl p-4">
+    <div className="relative flex justify-between items-center w-full bg-base-100 rounded-2xl p-2 md:p-4">
       <h1 className="absolute top-4 right-6 md:relative md:top-0 md:right-0 text-2xl md:text-4xl md:ml-6 md:mr-2 rounded-full p-2 md:p-0 w-8 flex justify-center items-center">
         {index}
       </h1>
@@ -46,16 +46,16 @@ const LinkPair = ({
 
       <div className="flex flex-col md:flex-row md:justify-between gap-4 ml-2 md:mx-4 flex-1">
         <div className="flex flex-col md:flex-row md:gap-12">
-          <fieldset className="fieldset relative mb-2">
-            <legend className="fieldset-legend ml-1 text-sm md:text-2xl py-3">
+          <fieldset className="fieldset relative md:mb-2">
+            <legend className="fieldset-legend ml-1 text-sm md:text-2xl md:py-3">
               Link Title
             </legend>
             <input
               type="text"
               className={
                 mode
-                  ? "input input-sm md:input-md pointer-events-none text-base"
-                  : "input input-sm md:input-md text-base"
+                  ? "input input-sm md:input-md pointer-events-none md:text-base"
+                  : "input input-sm md:input-md md:text-base"
               }
               placeholder="Type here"
               value={localLink.title}
@@ -70,16 +70,16 @@ const LinkPair = ({
             )}
           </fieldset>
 
-          <fieldset className="fieldset relative mb-2">
-            <legend className="fieldset-legend ml-1 text-sm md:text-2xl py-3">
+          <fieldset className="fieldset relative md:mb-2">
+            <legend className="fieldset-legend ml-1 text-sm md:text-2xl md:py-3">
               Link URL
             </legend>
             <input
               type="text"
               className={
                 mode
-                  ? "input input-sm md:input-md pointer-events-none text-base"
-                  : "input input-sm md:input-md text-base"
+                  ? "input input-sm md:input-md pointer-events-none md:text-base"
+                  : "input input-sm md:input-md md:text-base"
               }
               placeholder="Type here"
               value={localLink.url}
@@ -95,7 +95,7 @@ const LinkPair = ({
           </fieldset>
         </div>
 
-        <div className="flex gap-3 md:gap-6 my-1 md:my-auto">
+        <div className="flex gap-3 md:gap-6 my-2 md:my-auto">
           <button
             className={
               mode

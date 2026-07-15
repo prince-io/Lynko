@@ -12,13 +12,21 @@ import {
 
 const PERIODS = ["1h", "1d", "7d", "30d"];
 
-function toIST(dateStr, granularity) {
+function toIST(dateStr, period) {
   const d = new Date(dateStr);
-  const options = { timeZone: "Asia/Kolkata" };
-  if (granularity === "hour" || granularity === "minute") {
-    return d.toLocaleString("en-IN", { ...options, hour: "2-digit", minute: "2-digit", hour12: false });
+  if (period === "7d" || period === "30d") {
+    return d.toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "numeric",
+      month: "short",
+    });
   }
-  return d.toLocaleString("en-IN", { ...options, day: "2-digit", month: "2-digit", year: "numeric" });
+  return d.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 }
 
 export default function LinkMiniChart({ linkId, title }) {
@@ -90,7 +98,7 @@ export default function LinkMiniChart({ linkId, title }) {
           <LineChart data={data}>
             <XAxis
               dataKey="date"
-              tickFormatter={(v) => toIST(v, granularity)}
+              tickFormatter={(v) => toIST(v, period)}
               tick={{ fontSize: 10, fill: "currentColor" }}
                   interval="preserveStartEnd"
                   minTickGap={60}
@@ -101,13 +109,21 @@ export default function LinkMiniChart({ linkId, title }) {
               width={30}
             />
             <Tooltip
-              labelFormatter={(v) => toIST(v, granularity)}
               content={(props) => {
                 if (!props.active || !props.payload?.length) return null;
                 const { label, payload } = props;
+                const d = new Date(label);
+                const formatted = d.toLocaleDateString("en-IN", {
+                  timeZone: "Asia/Kolkata",
+                  day: "numeric",
+                  month: "short",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                });
                 return (
                   <div className="bg-base-100 border border-base-300 rounded-xl shadow-lg p-3 text-sm">
-                    <p className="font-semibold">{label}</p>
+                    <p className="font-semibold">{formatted}</p>
                     <p className="text-base-content/70">
                       {payload[0].value} click
                       {payload[0].value !== 1 ? "s" : ""}

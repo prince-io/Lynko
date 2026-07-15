@@ -8,7 +8,16 @@ Owns the Profile tab of the authenticated dashboard.
 
 | Component | Purpose |
 |-----------|---------|
-| `ProfileTab` | Main tab view — avatar upload, username editing with availability check, bio editing |
+| `ProfileTab` | Main tab view — orchestrates state, fetches data, renders sections |
+| `ProfilePhoto` | Avatar display, file input, upload button |
+| `PublicHandle` | Username input with availability check |
+| `BioEditor` | Bio textarea editor |
+
+## Contracts
+
+- `ProfilePhoto` receives `{ user, loading, handleFileSelect, handleUpload, fileInputRef }` — renders avatar, file input, and upload button
+- `PublicHandle` receives `{ username, setUsername, error, mssg, loading, checkUsername }` — renders URL prefix, input, validation message, and check button
+- `BioEditor` receives `{ bio, setBio }` — renders textarea for bio editing
 
 ## Quirks
 

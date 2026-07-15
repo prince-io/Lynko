@@ -11,7 +11,7 @@ Owns the Analytics tab of the authenticated dashboard.
 | `AnalyticsTab` | Tab view — renders heading + divider + AnalyticsWrapper |
 | `AnalyticsWrapper` | Data fetching, period filter, overview cards, chart layout |
 | `LynkoLinkTracker` | Wraps public profile links — intercepts clicks, fires track event, then redirects |
-| `charts/PageViewsCard` | Self-contained card — page views count with period selector |
+| `charts/PageViewsCard` | Self-contained card — all-time page views count with period-filtered timeline chart |
 | `charts/ClickDistribution` | Self-contained card — pie chart with period selector |
 | `charts/LinkMiniChart` | Self-contained per-link card — mini line chart with period selector |
 
@@ -28,4 +28,4 @@ No analytics-specific tests exist.
 
 | Path | Scope |
 |------|-------|
-| `components/analytics/charts/` | Recharts chart components (ClickTimeline, ClickDistribution) |
+| `components/analytics/charts/` | Recharts chart components (PageViewsCard, ClickDistribution, LinkMiniChart) |

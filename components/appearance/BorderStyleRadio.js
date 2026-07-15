@@ -7,7 +7,9 @@ export default function BorderStyleRadio({ border, onChange }) {
     <div className="bg-base-100 rounded-xl p-4">
       <div className="space-y-6">
         <div className="space-y-3">
-          <legend className="fieldset-legend text-lg">Card Border Style</legend>
+          <legend className="fieldset-legend md:text-lg">
+            Card Border Style
+          </legend>
 
           <div className="flex flex-wrap gap-5 w-[90%]">
             {Object.entries(BORDER).map(([key, className]) => (
@@ -18,11 +20,13 @@ export default function BorderStyleRadio({ border, onChange }) {
                 <input
                   type="radio"
                   name="card-border"
-                  className="radio radio-secondary"
+                  className="radio radio-sm md:radio-md radio-secondary"
                   checked={border === className}
                   onChange={() => onChange(className)}
                 />
-                <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                <span className="text-sm md:text-base">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </span>
               </label>
             ))}
           </div>

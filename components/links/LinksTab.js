@@ -263,14 +263,14 @@ const LinksTab = ({ user, setUser }) => {
     <div>
       {display && (
         <div className="toast toast-end z-3">
-          <div className={`alert text-lg ${mssg.type}`}>
+          <div className={`alert md:text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>
           </div>
         </div>
       )}
 
       <div>
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center p-3 md:p-0">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <h1 className="text-xl md:text-3xl">Link It All</h1>
 
           <div className="divider divider-primary md:hidden"></div>

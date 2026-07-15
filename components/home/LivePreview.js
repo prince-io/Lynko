@@ -39,11 +39,12 @@ const LivePreview = ({ user, links, design }) => {
             </div>
 
             <div className="avatar w-20 md:w-32">
-              <div className={`w-20 md:w-32 ${design.avatar}`}>
+              <div className={`w-20 md:w-32 ${design.avatar} relative`}>
                 <Image
                   src={user?.profilePic || "/default.jpg"}
                   alt="Profile avatar"
                   fill
+                  sizes="(max-width: 768px) 80px, 128px"
                   className={`w-20 md:w-32 object-cover ${design.avatar}`}
                 />
               </div>

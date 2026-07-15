@@ -11,7 +11,7 @@ const defaultDesign = {
   border: "none",
   avatar: "rounded-xl",
   background: "bg-primary",
-  buttonStyle: "btn btn btn-accent",
+  buttonStyle: "btn btn-accent",
   buttonRadius: "rounded",
 };
 

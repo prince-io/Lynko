@@ -9,10 +9,10 @@ const AppearancePreview = ({ user, links, design }) => {
       <div
         data-theme={design.theme}
         style={{ fontFamily: `var(--font-${design.font})` }}
-        className={`w-full h-full flex justify-center items-center bg-base-300 rounded-xl ${design.size[3]} text-primary-content`}
+        className={`w-full h-full flex justify-center items-center md:bg-base-300 rounded-xl ${design.size[3]} text-primary-content`}
       >
         <div
-          className={`w-[88%] md:w-[80%] h-fit ${design.background} ${design.radius} ${design.border} flex flex-col justify-center items-center gap-4 p-6 md:p-12 my-8 md:my-12`}
+          className={`w-full md:w-[80%] h-fit ${design.background} ${design.radius} ${design.border} flex flex-col justify-center items-center gap-4 p-6 md:p-12 md:my-12`}
         >
           <div className="w-full flex justify-between items-center mt-4 md:m-0">
             <h1 className={`${design.size[0]} flex items-center ml-2`}>
@@ -34,11 +34,12 @@ const AppearancePreview = ({ user, links, design }) => {
           </div>
 
           <div className="avatar w-20 md:w-32">
-            <div className={`w-20 md:w-32 ${design.avatar}`}>
+            <div className={`w-20 md:w-32 ${design.avatar} relative`}>
               <Image
                 src={user?.profilePic || "/default.jpg"}
                 alt="Profile avatar"
                 fill
+                sizes="(max-width: 768px) 80px, 128px"
                 className={`w-20 md:w-32 object-cover ${design.avatar}`}
               />
             </div>

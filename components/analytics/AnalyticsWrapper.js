@@ -28,8 +28,8 @@ export default function AnalyticsWrapper() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col md:flex-row gap-6">
+    <div className="flex flex-col gap-4 md:gap-6">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-6">
         <div className="flex-1">
           <PageViewsCard />
         </div>
@@ -38,13 +38,10 @@ export default function AnalyticsWrapper() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {linksLoading
           ? Array.from({ length: 3 }).map((_, i) => (
-              <div
-                key={i}
-                className="bg-base-100 rounded-xl p-4 animate-pulse"
-              >
+              <div key={i} className="bg-base-100 rounded-xl p-4 animate-pulse">
                 <div className="h-5 w-32 bg-base-300 rounded mb-3" />
                 <div className="h-44 bg-base-300 rounded" />
               </div>

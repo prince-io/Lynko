@@ -20,7 +20,8 @@ Owns the shared UI feature domain.
 
 ## Work Guidance
 
-None — these components are stable and rarely change.
+- `Navbar` handles both landing (unauthenticated) and dashboard (authenticated) states with `SignedIn`/`SignedOut` wrappers
+- `Footer` is content-only — no state or props
 
 ## Verification
 

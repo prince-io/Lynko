@@ -147,9 +147,9 @@ No test command exists.
 ### Dashboard quirks
 
 - **Links tab**: Uses `@dnd-kit` with vertical-axis drag (x clamped to 0). `clientId` (UUID) for sortable identity, `_id` for server ops. "Save All" iterates: PUT existing links, POST new ones, DELETE removed.
-- **Appearance tab**: File has old commented-out version at top (~520 lines) and active version below (~1050 lines). Only edit the bottom `export default`.
-- **Profile tab**: `checkUsername()` calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`. Validates alphanumeric and checks uniqueness.
-- **Home tab**: Overview cards fetch all-time data from `/api/analytics/overview?period=all` (page views, link clicks, top link). Quick Action cards navigate to the other four tabs.
+- **Appearance tab**: Cleaned up — no commented-out old code remains. Customization pickers are separate components.
+- **Profile tab**: `checkUsername()` calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`. Validates alphanumeric and checks uniqueness. Split into ProfilePhoto, PublicHandle, BioEditor.
+- **Home tab**: Split into LynkoLinkCard, OverviewCards, QuickActions, LivePreview. Overview cards fetch all-time data from `/api/analytics/overview?period=all` (page views, link clicks, top link). Quick Action cards navigate to the other four tabs.
 
 ### Design defaults
 
@@ -172,8 +172,8 @@ No tests exist. No verification framework. Run `npm run build` and `npm run lint
 | `components/landing/` | Landing page sections (Hero, How, About, Faq, Card) |
 | `components/lynkopage/` | Public Lynko profile page (LynkoPage, LynkoPageWrapper) |
 | `components/dashboard/` | Dashboard shell (DashboardWrapper, DashboardContent) |
-| `components/home/` | Dashboard Home tab (HomeTab + LivePreview) |
-| `components/profile/` | Dashboard Profile tab (ProfileTab) |
+| `components/home/` | Dashboard Home tab (HomeTab, LynkoLinkCard, OverviewCards, QuickActions, LivePreview) |
+| `components/profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, PublicHandle, BioEditor) |
 | `components/links/` | Dashboard Links tab (LinksTab + LinkPair) |
 | `components/appearance/` | Appearance tab (AppearanceTab + AppearancePreview + 9 pickers) |
 | `components/shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry) |

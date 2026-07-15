@@ -7,7 +7,7 @@ export default function AvatarShapeRadio({ avatar, onChange }) {
     <div className="bg-base-100 rounded-xl p-4">
       <div className="space-y-6">
         <div className="space-y-3">
-          <legend className="fieldset-legend text-lg">Avatar Shape</legend>
+          <legend className="fieldset-legend md:text-lg">Avatar Shape</legend>
           <div className="flex flex-wrap gap-5 w-[90%]">
             {AVATAR.map(({ label, value }) => (
               <label
@@ -17,11 +17,11 @@ export default function AvatarShapeRadio({ avatar, onChange }) {
                 <input
                   type="radio"
                   name="avatar-style"
-                  className="radio radio-secondary"
+                  className="radio radio-sm md:radio-md radio-secondary"
                   checked={avatar === value}
                   onChange={() => onChange(value)}
                 />
-                <span>{label}</span>
+                <span className="text-sm md:text-base">{label}</span>
               </label>
             ))}
           </div>

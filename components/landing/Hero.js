@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { SignUpButton } from "@clerk/nextjs";
 import { useRef } from "react";

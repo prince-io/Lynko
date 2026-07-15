@@ -89,3 +89,7 @@ h3 {
 .font-oswald {
   font-family: var(--font-oswald);
 }
+
+.recharts-wrapper *:focus {
+  outline: none !important;
+}

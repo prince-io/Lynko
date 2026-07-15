@@ -22,7 +22,7 @@ const designSchema = new mongoose.Schema(
         avatar: "rounded-xl",
         background: "bg-primary",
 
-        buttonStyle: "btn",
+        buttonStyle: "btn btn-accent",
         buttonRadius: "rounded",
       },
     },

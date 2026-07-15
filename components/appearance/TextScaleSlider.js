@@ -22,7 +22,7 @@ export default function TextScaleSlider({ size, onChange }) {
 
   return (
     <div className="bg-base-100 rounded-xl p-4 md:flex-1">
-      <legend className="fieldset-legend text-lg mb-1">Text Scale</legend>
+      <legend className="fieldset-legend md:text-lg mb-1">Text Scale</legend>
 
       {/* Slider */}
       <input
@@ -32,7 +32,7 @@ export default function TextScaleSlider({ size, onChange }) {
         step={1}
         value={sizeIndex}
         onChange={handleChange}
-        className="range range-secondary w-full"
+        className="range range-sm md:range-md range-secondary w-full"
       />
 
       {/* Pipes row */}

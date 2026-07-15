@@ -55,7 +55,7 @@ const LynkoPage = ({ user, links, design, userId }) => {
     <div>
       {display && (
         <div className="toast toast-end">
-          <div className={`alert ${mssg.type}`}>
+          <div className={`alert md:text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>
           </div>
         </div>
@@ -64,7 +64,7 @@ const LynkoPage = ({ user, links, design, userId }) => {
       <div
         data-theme={design.theme}
         style={{ fontFamily: `var(--font-${design.font})` }}
-        className={`w-full h-full flex justify-center items-center bg-base-300 ${design.size[3]} text-primary-content`}
+        className={`w-full min-h-screen flex justify-center items-center bg-base-300 ${design.size[3]} text-primary-content`}
       >
         <div
           className={`w-[90%] lg:w-[50%] h-fit ${design.background} ${design.radius} ${design.border} flex flex-col justify-center items-center gap-4 p-8 md:p-12 my-8 md:my-16`}
@@ -90,11 +90,12 @@ const LynkoPage = ({ user, links, design, userId }) => {
           </div>
 
           <div className="avatar w-24 md:w-32">
-            <div className={`w-24 md:w-32 ${design.avatar}`}>
+            <div className={`w-24 md:w-32 ${design.avatar} relative`}>
               <Image
                 src={user?.profilePic || "/default.jpg"}
                 alt="Profile avatar"
                 fill
+                sizes="(max-width: 768px) 96px, 128px"
                 className={`w-24 md:w-32 object-cover ${design.avatar}`}
               />
             </div>

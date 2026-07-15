@@ -24,7 +24,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
         <div className="navbar-start flex items-center gap-2 ml-0 md:ml-1">
           <label
             htmlFor="navbar-1-toggle"
-            className="btn btn-ghost lg:hidden text-base-100"
+            className="btn btn-sm btn-ghost lg:hidden text-base-100"
           >
             <Hamburger w={20} h={20} className="stroke-current" />
           </label>
@@ -39,7 +39,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
             <Menu
               activeTab={activeTab}
               setActiveTab={setActiveTab}
-              className="menu bg-base-100 lg:menu-horizontal rounded-box gap-2 text-base"
+              className="menu bg-base-100 lg:menu-horizontal rounded-box gap-2 text-sm md:text-base"
             />
           </SignedIn>
         </div>
@@ -57,8 +57,8 @@ const Navbar = ({ activeTab, setActiveTab }) => {
               </li>
             </ul>
             <div className="hidden md:flex gap-4">
-              <SignInButton className="btn btn-sm md:btn-md btn-soft text-base" />
-              <SignUpButton>
+              <SignInButton forceRedirectUrl="/dashboard" className="btn btn-sm md:btn-md btn-soft text-base" />
+              <SignUpButton forceRedirectUrl="/dashboard">
                 <button className="btn btn-sm md:btn-md btn-soft btn-primary text-base">
                   Sign Up
                 </button>
@@ -77,7 +77,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
           <Menu
             activeTab={activeTab}
             setActiveTab={setActiveTab}
-            className="menu gap-2 text-base"
+            className="menu gap-2 text-sm md:text-base"
           />
         </SignedIn>
 
@@ -90,8 +90,8 @@ const Navbar = ({ activeTab, setActiveTab }) => {
               <a href="#faq">FAQ</a>
             </li>
             <li className="flex flex-row justify-center gap-4 mt-4">
-              <SignInButton className="btn btn-sm btn-soft text-base" />
-              <SignUpButton>
+              <SignInButton forceRedirectUrl="/dashboard" className="btn btn-sm btn-soft text-base" />
+              <SignUpButton forceRedirectUrl="/dashboard">
                 <button className="btn btn-sm btn-soft btn-primary text-base">
                   Sign Up
                 </button>

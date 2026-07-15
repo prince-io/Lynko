@@ -11,8 +11,15 @@ import {
 
 const PERIODS = ["1h", "1d", "7d", "30d"];
 
-function toIST(dateStr) {
+function toIST(dateStr, period) {
   const d = new Date(dateStr);
+  if (period === "7d" || period === "30d") {
+    return d.toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "numeric",
+      month: "short",
+    });
+  }
   return d.toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
     hour: "2-digit",
@@ -34,7 +41,7 @@ export default function PageViewsCard() {
 
     try {
       const [overviewRes, timelineRes] = await Promise.all([
-        fetch(`/api/analytics/overview?period=${period}`),
+        fetch("/api/analytics/overview?period=all"),
         fetch(`/api/analytics/timeline?period=${period}`),
       ]);
 
@@ -62,7 +69,7 @@ export default function PageViewsCard() {
   return (
     <div className="bg-base-100 rounded-xl p-4 flex flex-col gap-4 h-full">
       <div className="flex items-center justify-between">
-        <h1 className="text-sm md:text-2xl">Page Views</h1>
+        <h1 className="text-base md:text-2xl">Page Views</h1>
         <div className="flex gap-1">
           {PERIODS.map((p) => (
             <button
@@ -97,7 +104,7 @@ export default function PageViewsCard() {
               <LineChart data={timeline}>
                 <XAxis
                   dataKey="date"
-                  tickFormatter={toIST}
+                  tickFormatter={(v) => toIST(v, period)}
                   tick={{ fontSize: 10, fill: "currentColor" }}
                   interval="preserveStartEnd"
                   axisLine={false}
@@ -105,13 +112,21 @@ export default function PageViewsCard() {
                   minTickGap={60}
                 />
                 <Tooltip
-                  labelFormatter={toIST}
                   content={(props) => {
                     if (!props.active || !props.payload?.length) return null;
                     const { label, payload } = props;
+                    const d = new Date(label);
+                    const formatted = d.toLocaleDateString("en-IN", {
+                      timeZone: "Asia/Kolkata",
+                      day: "numeric",
+                      month: "short",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    });
                     return (
                       <div className="bg-base-100 border border-base-300 rounded-xl shadow-lg p-3 text-sm">
-                        <p className="font-semibold">{label}</p>
+                        <p className="font-semibold">{formatted}</p>
                         <p className="text-base-content/70">
                           {payload[0].value} view
                           {payload[0].value !== 1 ? "s" : ""}

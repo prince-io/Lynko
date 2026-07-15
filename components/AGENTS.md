@@ -17,8 +17,8 @@ Owns all React components organized by feature folder.
 | `landing/` | Landing page sections (Hero, How, About, Faq, Card) |
 | `lynkopage/` | Public Lynko profile page (LynkoPage, LynkoPageWrapper) |
 | `dashboard/` | Dashboard shell (DashboardWrapper, DashboardContent) |
-| `home/` | Dashboard Home tab (HomeTab, LivePreview) |
-| `profile/` | Dashboard Profile tab (ProfileTab) |
+| `home/` | Dashboard Home tab (HomeTab, LynkoLinkCard, OverviewCards, QuickActions, LivePreview) |
+| `profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, PublicHandle, BioEditor) |
 | `links/` | Dashboard Links tab (LinksTab, LinkPair) |
 | `appearance/` | Dashboard Appearance tab (AppearanceTab, AppearancePreview, 9 customization pickers) |
 | `analytics/` | Analytics tab (AnalyticsTab, AnalyticsWrapper, charts/) |
@@ -52,8 +52,8 @@ No component-specific tests exist.
 | `components/landing/` | Landing page sections |
 | `components/lynkopage/` | Public Lynko profile page |
 | `components/dashboard/` | Dashboard shell (wrapper + content router) |
-| `components/home/` | Dashboard Home tab (HomeTab + LivePreview) |
-| `components/profile/` | Dashboard Profile tab (ProfileTab) |
+| `components/home/` | Dashboard Home tab (HomeTab, LynkoLinkCard, OverviewCards, QuickActions, LivePreview) |
+| `components/profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, PublicHandle, BioEditor) |
 | `components/links/` | Dashboard Links tab (LinksTab + LinkPair) |
 | `components/appearance/` | Appearance tab (AppearanceTab + AppearancePreview + 9 pickers) |
 | `components/analytics/` | Analytics tab (AnalyticsTab, AnalyticsWrapper, charts/) |
