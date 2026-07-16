@@ -1,7 +1,12 @@
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { auth } from "@clerk/nextjs/server";
 import { connectDB } from "@/lib/mongodb";
+import { getGraceMs } from "@/lib/gracePeriod";
 import User from "@/models/User";
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
+
+const GRACE_MS = getGraceMs();
 
 async function generateUniqueUsername() {
   let username;
@@ -29,6 +34,22 @@ export default async function DashboardLayout() {
   await connectDB();
 
   let userDoc = await User.findOne({ clerkUserId: userId }).lean();
+
+  const isServerAction = !!(await headers()).get("next-action");
+
+  if (userDoc?.isDeleted && !isServerAction) {
+    const scheduledAt = userDoc.deletionScheduledAt?.getTime();
+    if (scheduledAt && new Date() < new Date(scheduledAt + GRACE_MS)) {
+      await User.updateOne(
+        { _id: userDoc._id },
+        { $set: { isDeleted: false, deletionScheduledAt: null } },
+      );
+      userDoc.isDeleted = false;
+      userDoc.deletionScheduledAt = null;
+    } else {
+      redirect("/");
+    }
+  }
 
   if (!userDoc) {
     const username = await generateUniqueUsername();

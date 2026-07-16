@@ -7,14 +7,16 @@ const BioEditor = ({ bio, setBio }) => {
         Tell us who you are
       </h1>
 
-      <div className="md:row-span-2 md:col-start-2 mb-6">
+      <div className="md:row-span-2 md:col-start-2 mb-2">
         <fieldset className="fieldset">
           <textarea
             className="textarea md:text-base md:w-[70%]"
             placeholder="Bio"
             value={bio}
+            maxLength={500}
             onChange={(e) => setBio(e.target.value)}
           ></textarea>
+          <p className="text-xs opacity-60  text-left">{bio.length}/500</p>
         </fieldset>
       </div>
     </div>

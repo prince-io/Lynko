@@ -4,6 +4,8 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import cloudinary from "@/lib/cloudinary";
 
+const USERNAME_REGEX = /^[a-zA-Z0-9_]{3,12}$/;
+
 export async function GET(req) {
   const { userId } = await auth();
   if (!userId) {
@@ -89,6 +91,30 @@ export async function PUT(req) {
 
   const { username, bio } = await req.json();
 
+  if (username !== undefined && !USERNAME_REGEX.test(username)) {
+    return NextResponse.json(
+      { error: "Pick a username 3–12 characters long, using only letters, numbers, and underscores." },
+      { status: 400 },
+    );
+  }
+
+  if (username !== undefined) {
+    const existing = await User.findOne({ username, clerkUserId: { $ne: userId } });
+    if (existing) {
+      return NextResponse.json(
+        { error: "Username already taken." },
+        { status: 409 },
+      );
+    }
+  }
+
+  if (bio !== undefined && bio.length > 500) {
+    return NextResponse.json(
+      { error: "Bio must be 500 characters or fewer." },
+      { status: 400 },
+    );
+  }
+
   const user = await User.findOne({ clerkUserId: userId });
 
   if (!user) {
@@ -107,4 +133,29 @@ export async function PUT(req) {
     },
     { status: 200 },
   );
+}
+
+export async function DELETE() {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  await connectDB();
+
+  try {
+    const deletionScheduledAt = new Date();
+
+    await User.updateOne(
+      { clerkUserId: userId },
+      { $set: { isDeleted: true, deletionScheduledAt } },
+    );
+
+    return NextResponse.json({ success: true, scheduledFor: deletionScheduledAt.toISOString() });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to schedule account deletion" },
+      { status: 500 },
+    );
+  }
 }

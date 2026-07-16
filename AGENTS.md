@@ -126,7 +126,7 @@ No test command exists.
 |-------|------|-------|
 | `/` | public | Landing page; redirects authed users to `/dashboard` |
 | `/[username]` | public | Client component calls `GET /api/public/[username]`, 404 → `/404` |
-| `/dashboard` | required | Server layout creates User doc on first visit (auto-generates username) |
+| `/dashboard` | required | Server layout creates User doc on first visit (auto-generates username); auto-cancels scheduled deletion within grace period |
 | `/dashboard/*` | required | Five client-side tabs: Home, Profile, Links, Appearance, Analytics |
 
 ### API
@@ -143,9 +143,13 @@ No test command exists.
 | `/api/links/[id]` | DELETE | Yes | Delete link |
 | `/api/designs` | GET | Yes | Get design (upserts default if missing) |
 | `/api/designs` | POST | Yes | Save design customization |
+| `/api/users` | DELETE | Yes | Schedule account deletion (grace period: 12h prod / 10s dev) |
+| `/api/cron/cleanup-deleted` | GET | No | Purge users past grace period + cascade delete all data |
 
 ### Dashboard quirks
 
+- **Dashboard layout**: Auto-creates User doc on first visit. If user visits during deletion grace period, auto-cancels deletion (`isDeleted: false`). Past grace, redirects to `/`.
+- **Deletion grace period**: Controlled by `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS` env var. Default: 43200000 (12h).
 - **Links tab**: Uses `@dnd-kit` with vertical-axis drag (x clamped to 0). `clientId` (UUID) for sortable identity, `_id` for server ops. "Save All" iterates: PUT existing links, POST new ones, DELETE removed.
 - **Appearance tab**: Cleaned up — no commented-out old code remains. Customization pickers are separate components.
 - **Profile tab**: `checkUsername()` calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`. Validates alphanumeric and checks uniqueness. Split into ProfilePhoto, PublicHandle, BioEditor.

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"next dev -H 0.0.0.0\" \"node scripts/cleanup-cron.js\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -20,11 +20,13 @@
     "next": "^16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-easy-crop": "^6.2.2",
     "recharts": "^3.9.2",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "concurrently": "^9.1.2",
     "daisyui": "^5.5.14",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",

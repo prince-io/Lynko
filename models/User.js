@@ -25,6 +25,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+
+    deletionScheduledAt: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true },
 );

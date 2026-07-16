@@ -26,6 +26,14 @@ export async function POST(req) {
   const body = await req.json();
   await connectDB();
 
+  const linkCount = await Lynko.countDocuments({ userId });
+  if (linkCount >= 20) {
+    return NextResponse.json(
+      { error: "Maximum 20 links allowed" },
+      { status: 400 },
+    );
+  }
+
   const link = await Lynko.create({
     userId,
     title: body.title,

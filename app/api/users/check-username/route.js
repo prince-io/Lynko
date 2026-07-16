@@ -2,7 +2,7 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 
 function isValid(str) {
-  return /^[a-zA-Z0-9]+$/.test(str);
+  return /^[a-zA-Z0-9_]{3,12}$/.test(str);
 }
 
 export async function GET(req) {

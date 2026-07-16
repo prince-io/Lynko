@@ -20,11 +20,11 @@ Owns all route handlers, API endpoints, layout, and global styles.
 | `app/page.js` | Server | Landing page; "use client" inside redirects authed users to `/dashboard` |
 | `app/layout.js` | Server | Root layout: ClerkProvider, fonts, DaisyUI data-theme="emerald" |
 | `app/[username]/page.js` | Server | Public profile page; renders LynkoPageWrapper client component |
-| `app/dashboard/layout.js` | Server | Creates User doc on first visit, auto-generates username |
+| `app/dashboard/layout.js` | Server | Creates User doc on first visit, auto-generates username; auto-cancels deletion if user logs in within grace period |
 | `app/dashboard/page.js` | Server | Empty shell — UI rendered by DashboardWrapper |
 | `app/404/` | - | 404 error page |
 | `app/api/public/[username]/route.js` | GET | Fetches user + sorted links + design customization |
-| `app/api/users/route.js` | GET/POST/PUT | Profile read, avatar upload (multipart), profile update |
+| `app/api/users/route.js` | GET/POST/PUT/DELETE | Profile read, avatar upload (multipart), profile update, account deletion (soft-delete) |
 | `app/api/links/route.js` | GET/POST | List/create links |
 | `app/api/links/[id]/route.js` | PUT/DELETE | Update/delete link (scoped to owning user) |
 | `app/api/designs/route.js` | GET/POST | Read (upserts default), save design customization |
@@ -32,17 +32,21 @@ Owns all route handlers, API endpoints, layout, and global styles.
 | `app/api/analytics/overview/route.js` | GET | Required | Total views, clicks, top links summary |
 | `app/api/analytics/timeline/route.js` | GET | Required | Time-bucketed data for line chart |
 | `app/api/analytics/distribution/route.js` | GET | Required | Per-link click breakdown for pie chart |
+| `app/api/cron/cleanup-deleted/route.js` | GET | No | Dev cron (10s poll) / Vercel Cron (daily) — purges `User` docs with `isDeleted: true` |
 
 ### API quirks
 
 - `GET /api/designs` uses `findOneAndUpdate` with `$setOnInsert` + `upsert: true` — always returns a document
-- `PUT /api/users` does NOT check username uniqueness — potential duplicate issue
-- `GET /api/users/check-username?username=...` exists at `app/api/users/check-username/route.js`. Validates alphanumeric (`/^[a-zA-Z0-9]+$/`) and checks uniqueness. Does not require auth.
+- `PUT /api/users` validates username format (`/^[a-zA-Z0-9_]{3,12}$/`) and checks uniqueness (excluding self)
+- `GET /api/users/check-username?username=...` exists at `app/api/users/check-username/route.js`. Validates format (`/^[a-zA-Z0-9_]{3,12}$/`) and checks uniqueness. Does not require auth.
 - `POST /api/users` (avatar) uses `formData` with a `file` field, uploads to Cloudinary folder `lynko/avatars`
 - `app/dashboard/page.js` returns empty fragment — all UI is in `DashboardWrapper` client component
 - `app/dashboard/layout.js` auto-generates random usernames like `user_<random12chars>`
 - Analytics API routes accept period params: `1h`, `1d`, `7d`, `30d`, `all`
 - `DELETE /api/links/[id]` cascades — deletes associated link_click analytics records when a link is removed
+- `DELETE /api/users` schedules deletion: sets `isDeleted: true` and `deletionScheduledAt: now`. No cascade occurs — data is removed later by the cron job after the grace period elapses.
+- `GET /api/cron/cleanup-deleted` runs full cascade: finds users past grace period (configurable via `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS`), deletes Lynko/Design/Analytics/Cloudinary, then removes the User doc. Returns `{ cleaned: count }`.
+- `app/dashboard/layout.js` auto-cancels deletion when a logged-in user is within the grace period (sets `isDeleted: false`, `deletionScheduledAt: null`). If past grace, redirects to `/`.
 
 ## Work Guidance
 

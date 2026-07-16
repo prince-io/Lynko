@@ -1,12 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useClerk } from "@clerk/nextjs";
 import ProfilePhoto from "./ProfilePhoto";
+import CropModal from "./CropModal";
 import PublicHandle from "./PublicHandle";
 import BioEditor from "./BioEditor";
+import DeleteAccount from "./DeleteAccount";
 
 const ProfileTab = ({ user, setUser }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const { signOut } = useClerk();
+
+  const [cropSrc, setCropSrc] = useState(null);
+  const [croppedBlob, setCroppedBlob] = useState(null);
   const fileInputRef = useRef(null);
 
   const [username, setUsername] = useState(user?.username || "");
@@ -15,6 +21,10 @@ const ProfileTab = ({ user, setUser }) => {
   const [error, setError] = useState(false);
   const [mssg, setMssg] = useState("");
   const [loading, setLoading] = useState("");
+
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
+  const [deleteMssg, setDeleteMssg] = useState("");
 
   const [display, setDisplay] = useState(false);
   const [Tmssg, setTmssg] = useState({});
@@ -53,16 +63,30 @@ const ProfileTab = ({ user, setUser }) => {
   function handleFileSelect(e) {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
+      if (cropSrc) URL.revokeObjectURL(cropSrc);
+      setCropSrc(URL.createObjectURL(file));
+      setCroppedBlob(null);
     }
   }
 
+  function handleCropConfirm(blob) {
+    setCroppedBlob(blob);
+    if (cropSrc) URL.revokeObjectURL(cropSrc);
+    setCropSrc(null);
+  }
+
+  function handleCropCancel() {
+    if (cropSrc) URL.revokeObjectURL(cropSrc);
+    setCropSrc(null);
+    fileInputRef.current.value = "";
+  }
+
   async function handleUpload() {
-    if (!selectedFile) return;
+    if (!croppedBlob) return;
 
     setLoading("profilePic");
     const formData = new FormData();
-    formData.append("file", selectedFile);
+    formData.append("file", croppedBlob, "avatar.jpg");
 
     const res = await fetch("/api/users", {
       method: "POST",
@@ -72,7 +96,7 @@ const ProfileTab = ({ user, setUser }) => {
     const updatedUser = await res.json();
     setUser(updatedUser);
     fileInputRef.current.value = "";
-    setSelectedFile(null);
+    setCroppedBlob(null);
     setLoading("");
     setTmssg({ text: "Avatar updated successfully.", type: "alert-success" });
     setToast(true);
@@ -80,9 +104,9 @@ const ProfileTab = ({ user, setUser }) => {
 
   async function checkUsername(name) {
     setLoading("username");
-    if (name.trim() !== name) {
+    if (!/^[a-zA-Z0-9_]{3,12}$/.test(name)) {
       setError(true);
-      setMssg("Invalid username format.");
+      setMssg("Pick a username 3–12 characters long, using only letters, numbers, and underscores.");
     } else if (name !== user.username) {
       const res = await fetch(`/api/users/check-username?username=${name}`);
       const data = await res.json();
@@ -112,6 +136,23 @@ const ProfileTab = ({ user, setUser }) => {
     setToast(true);
   }
 
+  async function handleDelete() {
+    setDeleteLoading(true);
+    setDeleteError(false);
+    setDeleteMssg("");
+
+    const res = await fetch("/api/users", { method: "DELETE" });
+
+    if (!res.ok) {
+      setDeleteError(true);
+      setDeleteMssg("Something went wrong. Please try again.");
+      setDeleteLoading(false);
+      return;
+    }
+
+    signOut({ forceRedirectUrl: "/" });
+  }
+
   return (
     <div>
       {display && (
@@ -136,6 +177,14 @@ const ProfileTab = ({ user, setUser }) => {
 
       <div className="divider divider-primary"></div>
 
+      {cropSrc && (
+        <CropModal
+          imageSrc={cropSrc}
+          onConfirm={handleCropConfirm}
+          onCancel={handleCropCancel}
+        />
+      )}
+
       <div className="flex flex-col md:flex-row gap-4 md:gap-6">
         <ProfilePhoto
           user={user}
@@ -143,6 +192,7 @@ const ProfileTab = ({ user, setUser }) => {
           handleFileSelect={handleFileSelect}
           handleUpload={handleUpload}
           fileInputRef={fileInputRef}
+          croppedBlob={croppedBlob}
         />
 
         <div className="flex-3 flex flex-col gap-4 md:gap-6">
@@ -155,6 +205,12 @@ const ProfileTab = ({ user, setUser }) => {
             checkUsername={checkUsername}
           />
           <BioEditor bio={bio} setBio={setBio} />
+          <DeleteAccount
+            deleteLoading={deleteLoading}
+            deleteError={deleteError}
+            deleteMssg={deleteMssg}
+            handleDelete={handleDelete}
+          />
         </div>
       </div>
     </div>

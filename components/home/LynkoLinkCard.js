@@ -23,14 +23,14 @@ const LynkoLinkCard = ({ user, lynko, handleCopy }) => {
         </div>
 
         <div className="flex flex-col gap-3 md:w-[70%]">
-          <h1
+          <a
             href={lynko}
             target="_blank"
             rel="noopener noreferrer"
             className="link link-hover text-base md:text-2xl break-all font-semibold text-center md:text-left"
           >
             {lynko}
-          </h1>
+          </a>
 
           <p className="text-sm md:text-base text-center md:text-left">
             Grab your link and start sharing your Lynko page everywhere.

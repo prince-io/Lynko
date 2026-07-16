@@ -279,6 +279,7 @@ const LinksTab = ({ user, setUser }) => {
             <button
               className="btn btn-sm md:btn-md btn-primary"
               onClick={addLink}
+              disabled={links.length >= 20}
             >
               Add link
             </button>
