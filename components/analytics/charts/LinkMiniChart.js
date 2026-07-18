@@ -59,13 +59,11 @@ export default function LinkMiniChart({ linkId, title }) {
     fetchData();
   }, [fetchData]);
 
-  const hasClicks = data.some((d) => d.clicks > 0);
-
   return (
     <div className="bg-base-100 rounded-xl p-4 flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <h1 className="text-sm md:text-lg font-medium truncate">{title}</h1>
-        <div className="flex gap-1">
+        <div className="flex gap-1 ml-3 md:ml-0">
           {PERIODS.map((p) => (
             <button
               key={p}
@@ -89,10 +87,6 @@ export default function LinkMiniChart({ linkId, title }) {
             Retry
           </button>
         </div>
-      ) : !hasClicks ? (
-        <div className="flex items-center justify-center h-44 text-base-content/40">
-          No clicks
-        </div>
       ) : (
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={data}>
@@ -100,9 +94,9 @@ export default function LinkMiniChart({ linkId, title }) {
               dataKey="date"
               tickFormatter={(v) => toIST(v, period)}
               tick={{ fontSize: 10, fill: "currentColor" }}
-                  interval="preserveStartEnd"
-                  minTickGap={60}
-                />
+              interval="preserveStartEnd"
+              minTickGap={60}
+            />
             <YAxis
               allowDecimals={false}
               tick={{ fontSize: 10, fill: "currentColor" }}

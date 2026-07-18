@@ -17,6 +17,9 @@ Owns the shared UI feature domain.
 | `Menu` | Landing page, Dashboard | Sidebar navigation menu |
 | `ThemeButton` | Landing page | Theme toggle between light (emerald) and dark (night) |
 | `GSAPRegistry` | Root layout (`app/layout.js`) | GSAP animation registration |
+| `MarqueeText` | LynkoPage, LivePreview, AppearancePreview | Wraps text in overflow-hidden container; on hover animates overflowed text left→right→left via CSS transitions |
+| `Loader` | LynkoPageWrapper, 404 page | Simple animated bar loader (3 bars scaling up/down) |
+| `NotFoundAnimation` | 404 page | Animated SVG face illustration for error pages |
 
 ## Work Guidance
 

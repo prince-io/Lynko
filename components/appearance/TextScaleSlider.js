@@ -16,8 +16,10 @@ export default function TextScaleSlider({ size, onChange }) {
 
   // Helper: get percentage for each index
   const getLeft = (i) => {
-    if (SIZE.length <= 1) return 50; // only one item, center it
-    return (i / (SIZE.length - 1)) * 100;
+    if (SIZE.length <= 1) return 50;
+    const span = 93;
+    const offset = (100 - span) / 2;
+    return offset + (i / (SIZE.length - 1)) * span;
   };
 
   return (

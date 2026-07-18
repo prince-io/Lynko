@@ -15,7 +15,7 @@ Owns the Profile tab of the authenticated dashboard.
 | `BioEditor` | Bio textarea editor |
 | `DeleteAccount` | Two-step delete flow (type "DELETE" → warning confirmation with grace-period messaging) |
 
-## Contracts
+## Local Contracts
 
 - `ProfilePhoto` receives `{ user, loading, handleFileSelect, handleUpload, fileInputRef, croppedBlob }` — renders avatar (or cropped preview with "New" badge when `croppedBlob` is set), file input, and upload button. Upload button disabled when no `croppedBlob`.
 - `CropModal` receives `{ imageSrc, onConfirm(blob), onCancel }` — fixed overlay with react-easy-crop (1:1 aspect), zoom range slider, confirm/cancel buttons. Generates JPEG blob via canvas on confirm.
@@ -23,7 +23,7 @@ Owns the Profile tab of the authenticated dashboard.
 - `BioEditor` receives `{ bio, setBio }` — renders textarea for bio editing
 - `DeleteAccount` receives `{ deleteLoading, deleteError, deleteMssg, handleDelete }` — two-step UI: DELETE text input, then warning confirmation with grace-period info read from `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS`
 
-## Quirks
+### Quirks
 
 - Username check calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`
 - Avatar upload uses `multipart/form-data` POST to `/api/users`, uploads to Cloudinary

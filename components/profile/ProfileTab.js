@@ -93,6 +93,14 @@ const ProfileTab = ({ user, setUser }) => {
       body: formData,
     });
 
+    if (!res.ok) {
+      const data = await res.json();
+      setLoading("");
+      setTmssg({ text: data.error || "Upload failed. Try again.", type: "alert-error" });
+      setToast(true);
+      return;
+    }
+
     const updatedUser = await res.json();
     setUser(updatedUser);
     fileInputRef.current.value = "";

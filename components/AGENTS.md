@@ -18,11 +18,11 @@ Owns all React components organized by feature folder.
 | `lynkopage/` | Public Lynko profile page (LynkoPage, LynkoPageWrapper) |
 | `dashboard/` | Dashboard shell (DashboardWrapper, DashboardContent) |
 | `home/` | Dashboard Home tab (HomeTab, LynkoLinkCard, OverviewCards, QuickActions, LivePreview) |
-| `profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, PublicHandle, BioEditor) |
+| `profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, CropModal, PublicHandle, BioEditor, DeleteAccount) |
 | `links/` | Dashboard Links tab (LinksTab, LinkPair) |
 | `appearance/` | Dashboard Appearance tab (AppearanceTab, AppearancePreview, 9 customization pickers) |
 | `analytics/` | Analytics tab (AnalyticsTab, AnalyticsWrapper, charts/) |
-| `shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry) |
+| `shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry, MarqueeText, Loader, NotFoundAnimation) |
 | `icons/` | Importable SVG icon components, each accepting `{ w, h, className }` props |
 
 ### Dashboard tab quirks
@@ -53,7 +53,7 @@ No component-specific tests exist.
 | `components/lynkopage/` | Public Lynko profile page |
 | `components/dashboard/` | Dashboard shell (wrapper + content router) |
 | `components/home/` | Dashboard Home tab (HomeTab, LynkoLinkCard, OverviewCards, QuickActions, LivePreview) |
-| `components/profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, PublicHandle, BioEditor) |
+| `components/profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, CropModal, PublicHandle, BioEditor, DeleteAccount) |
 | `components/links/` | Dashboard Links tab (LinksTab + LinkPair) |
 | `components/appearance/` | Appearance tab (AppearanceTab + AppearancePreview + 9 pickers) |
 | `components/analytics/` | Analytics tab (AnalyticsTab, AnalyticsWrapper, charts/) |

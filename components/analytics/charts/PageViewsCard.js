@@ -64,8 +64,6 @@ export default function PageViewsCard() {
     fetchData();
   }, [fetchData]);
 
-  const hasViews = timeline.some((d) => d.views > 0);
-
   return (
     <div className="bg-base-100 rounded-xl p-4 flex flex-col gap-4 h-full">
       <div className="flex items-center justify-between">
@@ -99,52 +97,50 @@ export default function PageViewsCard() {
         <>
           <p className="text-4xl md:text-5xl font-bold">{views ?? 0}</p>
 
-          {hasViews && (
-            <ResponsiveContainer width="100%" height={120}>
-              <LineChart data={timeline}>
-                <XAxis
-                  dataKey="date"
-                  tickFormatter={(v) => toIST(v, period)}
-                  tick={{ fontSize: 10, fill: "currentColor" }}
-                  interval="preserveStartEnd"
-                  axisLine={false}
-                  tickLine={false}
-                  minTickGap={60}
-                />
-                <Tooltip
-                  content={(props) => {
-                    if (!props.active || !props.payload?.length) return null;
-                    const { label, payload } = props;
-                    const d = new Date(label);
-                    const formatted = d.toLocaleDateString("en-IN", {
-                      timeZone: "Asia/Kolkata",
-                      day: "numeric",
-                      month: "short",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: false,
-                    });
-                    return (
-                      <div className="bg-base-100 border border-base-300 rounded-xl shadow-lg p-3 text-sm">
-                        <p className="font-semibold">{formatted}</p>
-                        <p className="text-base-content/70">
-                          {payload[0].value} view
-                          {payload[0].value !== 1 ? "s" : ""}
-                        </p>
-                      </div>
-                    );
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="views"
-                  stroke="#3b82f6"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          )}
+          <ResponsiveContainer width="100%" height={120}>
+            <LineChart data={timeline}>
+              <XAxis
+                dataKey="date"
+                tickFormatter={(v) => toIST(v, period)}
+                tick={{ fontSize: 10, fill: "currentColor" }}
+                interval="preserveStartEnd"
+                axisLine={false}
+                tickLine={false}
+                minTickGap={60}
+              />
+              <Tooltip
+                content={(props) => {
+                  if (!props.active || !props.payload?.length) return null;
+                  const { label, payload } = props;
+                  const d = new Date(label);
+                  const formatted = d.toLocaleDateString("en-IN", {
+                    timeZone: "Asia/Kolkata",
+                    day: "numeric",
+                    month: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  });
+                  return (
+                    <div className="bg-base-100 border border-base-300 rounded-xl shadow-lg p-3 text-sm">
+                      <p className="font-semibold">{formatted}</p>
+                      <p className="text-base-content/70">
+                        {payload[0].value} view
+                        {payload[0].value !== 1 ? "s" : ""}
+                      </p>
+                    </div>
+                  );
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="views"
+                stroke="#3b82f6"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </>
       )}
     </div>

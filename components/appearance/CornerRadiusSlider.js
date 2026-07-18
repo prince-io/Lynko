@@ -14,7 +14,9 @@ export default function CornerRadiusSlider({ radius, onChange }) {
 
   const getLeft = (i) => {
     if (RADIUS.length <= 1) return 50;
-    return (i / (RADIUS.length - 1)) * 100;
+    const span = 93;
+    const offset = (100 - span) / 2;
+    return offset + (i / (RADIUS.length - 1)) * span;
   };
 
   return (

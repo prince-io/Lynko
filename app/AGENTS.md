@@ -28,10 +28,10 @@ Owns all route handlers, API endpoints, layout, and global styles.
 | `app/api/links/route.js` | GET/POST | List/create links |
 | `app/api/links/[id]/route.js` | PUT/DELETE | Update/delete link (scoped to owning user) |
 | `app/api/designs/route.js` | GET/POST | Read (upserts default), save design customization |
-| `app/api/analytics/track/route.js` | POST | Public | Record page_view or link_click event |
-| `app/api/analytics/overview/route.js` | GET | Required | Total views, clicks, top links summary |
-| `app/api/analytics/timeline/route.js` | GET | Required | Time-bucketed data for line chart |
-| `app/api/analytics/distribution/route.js` | GET | Required | Per-link click breakdown for pie chart |
+| `app/api/analytics/track/route.js` | POST | Public — record page_view or link_click event |
+| `app/api/analytics/overview/route.js` | GET | Required — total views, clicks, top links summary |
+| `app/api/analytics/timeline/route.js` | GET | Required — time-bucketed data for line chart |
+| `app/api/analytics/distribution/route.js` | GET | Required — per-link click breakdown for pie chart |
 | `app/api/cron/cleanup-deleted/route.js` | GET | No | Dev cron (10s poll) / Vercel Cron (daily) — purges `User` docs with `isDeleted: true` |
 
 ### API quirks
@@ -53,7 +53,7 @@ Owns all route handlers, API endpoints, layout, and global styles.
 - Always `await params` in App Router route handlers and pages (Next.js 15+ async params API)
 - `proxy.js` at root is named wrong — a working middleware would need to be `middleware.js`
 - When adding env vars, update both `.env.local` and the README
-- Design defaults in `api/designs/route.js:6-16` must match `models/Design.js:13-27`
+- Design defaults in `api/designs/route.js:7-15` must match `models/Design.js:14-27`
 
 ## Verification
 

@@ -51,25 +51,42 @@ export async function POST(req) {
     );
   }
 
-  const bytes = await file.arrayBuffer();
+  let bytes;
+  try {
+    bytes = await file.arrayBuffer();
+  } catch {
+    return NextResponse.json({ error: "Failed to read file" }, { status: 400 });
+  }
+
   const buffer = Buffer.from(bytes);
 
-  const uploadResult = await new Promise((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream(
-        {
-          folder: "lynko/avatars",
-          public_id: userId,
-          overwrite: true,
-          resource_type: "image",
-        },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        },
-      )
-      .end(buffer);
-  });
+  let uploadResult;
+  try {
+    uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "lynko/avatars",
+            public_id: userId,
+            overwrite: true,
+            resource_type: "image",
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          },
+        )
+        .end(buffer);
+    });
+  } catch {
+    return NextResponse.json(
+      {
+        error:
+          "Failed to upload image. File may be too large or the service is unavailable.",
+      },
+      { status: 500 },
+    );
+  }
 
   const updatedUser = await User.findOneAndUpdate(
     { clerkUserId: userId },
@@ -93,13 +110,19 @@ export async function PUT(req) {
 
   if (username !== undefined && !USERNAME_REGEX.test(username)) {
     return NextResponse.json(
-      { error: "Pick a username 3–12 characters long, using only letters, numbers, and underscores." },
+      {
+        error:
+          "Pick a username 3–12 characters long, using only letters, numbers, and underscores.",
+      },
       { status: 400 },
     );
   }
 
   if (username !== undefined) {
-    const existing = await User.findOne({ username, clerkUserId: { $ne: userId } });
+    const existing = await User.findOne({
+      username,
+      clerkUserId: { $ne: userId },
+    });
     if (existing) {
       return NextResponse.json(
         { error: "Username already taken." },
@@ -151,7 +174,10 @@ export async function DELETE() {
       { $set: { isDeleted: true, deletionScheduledAt } },
     );
 
-    return NextResponse.json({ success: true, scheduledFor: deletionScheduledAt.toISOString() });
+    return NextResponse.json({
+      success: true,
+      scheduledFor: deletionScheduledAt.toISOString(),
+    });
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to schedule account deletion" },

@@ -14,7 +14,7 @@ export default function FontDropdown({ font, onChange }) {
 
         <ul
           tabIndex={-1}
-          className="dropdown-content menu bg-base-100 rounded-box z-10  p-2 shadow h-60 overflow-y-auto flex-row"
+          className="dropdown-content menu bg-base-100 rounded-box z-10 p-2 shadow h-60 overflow-y-auto overflow-x-hidden flex-row text-base"
         >
           {FONT.map(({ name, value }) => (
             <li
@@ -27,7 +27,7 @@ export default function FontDropdown({ font, onChange }) {
                   : ""
               } w-full`}
             >
-              <a>{name}</a>
+              <a className="whitespace-nowrap">{name}</a>
             </li>
           ))}
         </ul>

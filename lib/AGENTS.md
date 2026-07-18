@@ -17,7 +17,7 @@ Owns shared utility and integration modules.
 
 ### `designOptions.js`
 - Constants consumed by the Appearance dashboard tab and preview components
-- Exports: `THEMES` (35 DaisyUI theme names), `FONT` (10 font objects), `SIZE` (6 scale levels), `RADIUS` (6 values), `BORDER` (5 style objects), `AVATAR` (7 shapes), `BG` (10 background options), `BTN` (4 button styles), `BTNRAD` (2 button shapes)
+- Exports: `THEMES` (35 DaisyUI theme names), `FONT` (20 font objects), `SIZE` (6 scale levels), `RADIUS` (6 values), `BORDER` (5 style objects), `AVATAR` (7 shapes), `BG` (10 background options), `BTN` (4 button styles), `BTNRAD` (5 button shapes)
 - Font values must match the CSS variable names loaded in `app/layout.js` (e.g. `"inter"` → `--font-inter`)
 
 ### `gracePeriod.js`

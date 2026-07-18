@@ -12,14 +12,20 @@ function createImage(url) {
   });
 }
 
+const MAX_AVATAR_SIZE = 400;
+
 function getCroppedImg(imageSrc, pixelCrop) {
   return Promise.resolve().then(async () => {
     const image = await createImage(imageSrc);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    canvas.width = pixelCrop.width;
-    canvas.height = pixelCrop.height;
+    const scale = Math.min(MAX_AVATAR_SIZE / pixelCrop.width, MAX_AVATAR_SIZE / pixelCrop.height, 1);
+    const w = Math.round(pixelCrop.width * scale);
+    const h = Math.round(pixelCrop.height * scale);
+
+    canvas.width = w;
+    canvas.height = h;
 
     ctx.drawImage(
       image,
@@ -29,12 +35,12 @@ function getCroppedImg(imageSrc, pixelCrop) {
       pixelCrop.height,
       0,
       0,
-      pixelCrop.width,
-      pixelCrop.height,
+      w,
+      h,
     );
 
     return new Promise((resolve) => {
-      canvas.toBlob((blob) => resolve(blob), "image/jpeg");
+      canvas.toBlob((blob) => resolve(blob), "image/jpeg", 0.85);
     });
   });
 }

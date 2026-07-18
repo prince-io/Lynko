@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import LynkoPage from "./LynkoPage";
+import Loader from "@/components/shared/Loader";
 
 export default function LynkoPageWrapper() {
   const { username } = useParams();
@@ -56,8 +57,8 @@ export default function LynkoPageWrapper() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-lg opacity-70">
-        Loading…
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader />
       </div>
     );
   }

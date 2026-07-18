@@ -250,8 +250,15 @@ const LinksTab = ({ user, setUser }) => {
     setToast(true);
   }
 
-  const hasEmptyLinks = links.some(
-    (link) => !link.title?.trim() || !link.url?.trim(),
+  const TITLE_MAX = 100;
+  const URL_MAX = 2048;
+
+  const hasInvalidLinks = links.some(
+    (link) =>
+      !link.title?.trim() ||
+      !link.url?.trim() ||
+      link.title.length > TITLE_MAX ||
+      link.url.length > URL_MAX,
   );
 
   const isDirty =
@@ -294,7 +301,7 @@ const LinksTab = ({ user, setUser }) => {
             <button
               className="btn btn-sm md:btn-md btn-primary"
               onClick={saveAllLinks}
-              disabled={!isDirty || isSaving || hasEmptyLinks}
+              disabled={!isDirty || isSaving || hasInvalidLinks}
             >
               {isSaving ? "Saving..." : "Save All"}
             </button>

@@ -194,7 +194,7 @@ const AppearanceTab = ({ user, setUser }) => {
           </div>
         </div>
 
-        <div className="flex-4 w-full">
+        <div className="flex-4 min-w-0 w-full">
           <AppearancePreview user={user} links={links} design={design} />
         </div>
       </div>

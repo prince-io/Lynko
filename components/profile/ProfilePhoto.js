@@ -60,6 +60,7 @@ const ProfilePhoto = ({
             className="btn btn-sm md:btn-lg btn-secondary w-fit"
             disabled={!croppedBlob || loading == "profilePic"}
             onClick={handleUpload}
+            title="Upload avatar"
           >
             <Upload w="1.6em" h="1.6em" className="stroke-current" />
           </button>

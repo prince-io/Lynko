@@ -13,10 +13,10 @@ const QuickActions = ({ setActiveTab }) => {
           onClick={() => setActiveTab("Profile")}
         >
           <div className="card-body">
-            <h2 className="text-xl md:text-2xl">Profile</h2>
+            <h2 className="text-lg md:text-2xl">Profile</h2>
 
             <div className="flex justify-between">
-              <p className="flex-4">
+              <p className="flex-4 text-xs md:text-sm">
                 Update your username, bio, and profile picture.
               </p>
               <Arrow
@@ -33,10 +33,10 @@ const QuickActions = ({ setActiveTab }) => {
           onClick={() => setActiveTab("Links")}
         >
           <div className="card-body">
-            <h2 className="text-xl md:text-2xl">Links</h2>
+            <h2 className="text-lg md:text-2xl">Links</h2>
 
             <div className="flex justify-between">
-              <p className="flex-4">
+              <p className="flex-4 text-xs md:text-sm">
                 Add, edit, or reorder your link collection.
               </p>
               <Arrow
@@ -53,10 +53,10 @@ const QuickActions = ({ setActiveTab }) => {
           onClick={() => setActiveTab("Appearance")}
         >
           <div className="card-body">
-            <h2 className="text-xl md:text-2xl">Appearance</h2>
+            <h2 className="text-lg md:text-2xl">Appearance</h2>
 
             <div className="flex justify-between">
-              <p className="flex-4">
+              <p className="flex-4 text-xs md:text-sm">
                 Customize your theme, fonts, buttons, and layout.
               </p>
               <Arrow
@@ -73,10 +73,10 @@ const QuickActions = ({ setActiveTab }) => {
           onClick={() => setActiveTab("Analytics")}
         >
           <div className="card-body">
-            <h2 className="text-xl md:text-2xl">Analytics</h2>
+            <h2 className="text-lg md:text-2xl">Analytics</h2>
 
             <div className="flex justify-between">
-              <p className="flex-4">
+              <p className="flex-4 text-xs md:text-sm">
                 Track page views, link clicks, and top performers.
               </p>
               <Arrow

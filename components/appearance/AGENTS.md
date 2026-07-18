@@ -21,7 +21,7 @@ Owns the Appearance dashboard tab and all its customization pickers.
 | `ButtonShapeRadio` | Radio group | `BTNRAD` (2 shapes: rounded, square) |
 | `BackgroundStyleDropdown` | Dropdown | `BG` (10 options: primary, secondary, 8 gradient directions) |
 
-## Contract
+## Local Contracts
 
 - Each component receives two props: a `value` (current selection) and an `onChange(newValue)` callback
 - Components do not import `setDesign` — they emit the new value upward

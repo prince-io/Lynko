@@ -12,6 +12,16 @@ import {
   Monofett,
   Monoton,
   Oswald,
+  Quicksand,
+  Creepster,
+  Galindo,
+  Kameron,
+  Micro_5,
+  Sofia,
+  Cookie,
+  Mystery_Quest,
+  Special_Elite,
+  Iceberg,
 } from "next/font/google";
 
 const inter = Inter({
@@ -78,6 +88,76 @@ const oswald = Oswald({
   display: "swap",
 });
 
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-quicksand",
+  display: "swap",
+});
+
+const creepster = Creepster({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-creepster",
+  display: "swap",
+});
+
+const galindo = Galindo({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-galindo",
+  display: "swap",
+});
+
+const kameron = Kameron({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-kameron",
+  display: "swap",
+});
+
+const micro5 = Micro_5({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-micro5",
+  display: "swap",
+});
+
+const sofia = Sofia({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-sofia",
+  display: "swap",
+});
+
+const cookie = Cookie({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-cookie",
+  display: "swap",
+});
+
+const mysteryQuest = Mystery_Quest({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-mystery-quest",
+  display: "swap",
+});
+
+const specialElite = Special_Elite({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-special-elite",
+  display: "swap",
+});
+
+const iceberg = Iceberg({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-iceberg",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Lynko — One Link for Everything You Do",
   description:
@@ -101,6 +181,16 @@ export default function RootLayout({ children }) {
           ${monofett.variable}
           ${monoton.variable}
           ${oswald.variable}
+          ${quicksand.variable}
+          ${creepster.variable}
+          ${galindo.variable}
+          ${kameron.variable}
+          ${micro5.variable}
+          ${sofia.variable}
+          ${cookie.variable}
+          ${mysteryQuest.variable}
+          ${specialElite.variable}
+          ${iceberg.variable}
         `}
       >
         <body className="bg-grid min-h-screen flex flex-col">

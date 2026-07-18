@@ -14,7 +14,7 @@ Owns the Home tab of the authenticated dashboard.
 | `QuickActions` | Quick actions grid — 4 cards navigating to other tabs |
 | `LivePreview` | Phone mockup preview of the user's Lynko page |
 
-## Contracts
+## Local Contracts
 
 - `LynkoLinkCard` receives `{ user, lynko, handleCopy }` — renders avatar, link URL, and copy/open buttons
 - `OverviewCards` receives `{ overview }` — renders three stat cards from analytics data

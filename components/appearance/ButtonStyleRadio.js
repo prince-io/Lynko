@@ -4,7 +4,7 @@ import { BTN } from "@/lib/designOptions";
 
 export default function ButtonStyleRadio({ buttonStyle, onChange }) {
   return (
-    <div className="space-y-6 bg-base-100 rounded-xl p-4 md:flex-5">
+    <div className="space-y-6 bg-base-100 rounded-xl p-4 md:flex-1">
       <div className="space-y-3">
         <legend className="fieldset-legend md:text-lg">Buttons Style</legend>
 

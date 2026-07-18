@@ -152,12 +152,12 @@ No test command exists.
 - **Deletion grace period**: Controlled by `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS` env var. Default: 43200000 (12h).
 - **Links tab**: Uses `@dnd-kit` with vertical-axis drag (x clamped to 0). `clientId` (UUID) for sortable identity, `_id` for server ops. "Save All" iterates: PUT existing links, POST new ones, DELETE removed.
 - **Appearance tab**: Cleaned up — no commented-out old code remains. Customization pickers are separate components.
-- **Profile tab**: `checkUsername()` calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`. Validates alphanumeric and checks uniqueness. Split into ProfilePhoto, PublicHandle, BioEditor.
+- **Profile tab**: `checkUsername()` calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`. Validates alphanumeric and checks uniqueness. Split into ProfilePhoto, CropModal, PublicHandle, BioEditor, DeleteAccount.
 - **Home tab**: Split into LynkoLinkCard, OverviewCards, QuickActions, LivePreview. Overview cards fetch all-time data from `/api/analytics/overview?period=all` (page views, link clicks, top link). Quick Action cards navigate to the other four tabs.
 
 ### Design defaults
 
-Default values are duplicated in `models/Design.js:13-27` and `api/designs/route.js:6-16`. Keep in sync when changing defaults.
+Default values are duplicated in `models/Design.js:14-27` and `api/designs/route.js:7-15`. Keep in sync when changing defaults.
 
 ### Middleware
 
@@ -177,10 +177,13 @@ No tests exist. No verification framework. Run `npm run build` and `npm run lint
 | `components/lynkopage/` | Public Lynko profile page (LynkoPage, LynkoPageWrapper) |
 | `components/dashboard/` | Dashboard shell (DashboardWrapper, DashboardContent) |
 | `components/home/` | Dashboard Home tab (HomeTab, LynkoLinkCard, OverviewCards, QuickActions, LivePreview) |
-| `components/profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, PublicHandle, BioEditor) |
+| `components/profile/` | Dashboard Profile tab (ProfileTab, ProfilePhoto, CropModal, PublicHandle, BioEditor, DeleteAccount) |
 | `components/links/` | Dashboard Links tab (LinksTab + LinkPair) |
 | `components/appearance/` | Appearance tab (AppearanceTab + AppearancePreview + 9 pickers) |
-| `components/shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry) |
+| `components/analytics/` | Analytics tab (AnalyticsTab, AnalyticsWrapper, LynkoLinkTracker, charts/) |
+| `components/icons/` | Reusable SVG icon components (26 icons, each accepts `{ w, h, className }`) |
+| `components/shared/` | Reusable UI (Navbar, Footer, Menu, ThemeButton, GSAPRegistry, MarqueeText, Loader, NotFoundAnimation) |
 | `models/` | Mongoose schemas, field conventions, the clerkUserId/userId naming split |
 | `lib/` | Integrations: MongoDB connection caching, Cloudinary config, design option constants |
 | `public/` | Static assets (default avatar, hero image) |
+| `scripts/` | Development scripts (cleanup-cron.js — runs concurrently with `npm run dev`) |
