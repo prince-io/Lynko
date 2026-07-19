@@ -4,7 +4,7 @@ import { FONT } from "@/lib/designOptions";
 
 export default function FontDropdown({ font, onChange }) {
   return (
-    <div className="flex gap-4 items-center bg-base-100 rounded-xl p-4 md:flex-1">
+    <div className="flex justify-between gap-4 items-center bg-base-100 rounded-xl p-4 md:flex-1">
       <legend className="fieldset-legend md:text-lg">Font Family</legend>
 
       <div className="dropdown dropdown-end md:dropdown-start">

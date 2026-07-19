@@ -4,8 +4,8 @@ import { THEMES } from "@/lib/designOptions";
 
 export default function ThemeDropdown({ theme, onChange }) {
   return (
-    <div className="flex gap-4 items-center bg-base-100 rounded-xl p-4 md:flex-1">
-      <legend className="fieldset-legend md:text-lg">Appearance Theme</legend>
+    <div className="flex justify-between gap-4 items-center bg-base-100 rounded-xl p-4 md:flex-1">
+      <legend className="fieldset-legend md:text-lg">Color Theme</legend>
 
       <div className="dropdown dropdown-end md:dropdown-start">
         <div tabIndex={0} role="button" className="btn btn-secondary m-1">

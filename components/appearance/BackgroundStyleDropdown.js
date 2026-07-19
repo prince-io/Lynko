@@ -5,8 +5,8 @@ import { Arrow } from "@/components/icons";
 
 export default function BackgroundStyleDropdown({ background, onChange }) {
   return (
-    <div className="w-full md:w-1/2 flex gap-4 items-center bg-base-100 rounded-xl p-4">
-      <legend className="fieldset-legend md:text-lg">Background Style</legend>
+    <div className="w-full md:w-1/2 flex justify-between gap-4 items-center bg-base-100 rounded-xl p-4">
+      <legend className="fieldset-legend md:text-lg">Background</legend>
       <div className="dropdown dropdown-end md:dropdown-right">
         <div tabIndex={0} role="button" className="btn btn-secondary m-1">
           {Object.values(BG).find((v) => v.className === background)?.label}

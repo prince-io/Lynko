@@ -20,7 +20,7 @@ export default function DashboardWrapper({ user }) {
   return (
     <>
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className="dashboard-container md:min-h-screen">
+      <div className="dashboard-container min-h-screen">
         <div className="flex-1 p-4">
           <DashboardContent
             activeTab={activeTab}
