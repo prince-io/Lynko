@@ -161,7 +161,7 @@ Default values are duplicated in `models/Design.js:14-27` and `api/designs/route
 
 ### Middleware
 
-`middleware.js` at root runs `clerkMiddleware` with public routes for the landing page, public API endpoints, and the cron cleanup endpoint. Protected API routes block unauthenticated requests.
+`proxy.js` at root runs `clerkMiddleware` (Clerk v6 `createRouteMatcher` + `auth.protect()`) with public routes for the landing page, public API endpoints, and the cron cleanup endpoint. Protected API routes block unauthenticated requests.
 
 ## Verification
 
