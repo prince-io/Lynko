@@ -32,7 +32,7 @@ Owns all route handlers, API endpoints, layout, and global styles.
 | `app/api/analytics/overview/route.js` | GET | Required — total views, clicks, top links summary |
 | `app/api/analytics/timeline/route.js` | GET | Required — time-bucketed data for line chart |
 | `app/api/analytics/distribution/route.js` | GET | Required — per-link click breakdown for pie chart |
-| `app/api/cron/cleanup-deleted/route.js` | GET | No | Dev cron (10s poll) / Vercel Cron (daily) — purges `User` docs with `isDeleted: true` |
+| `app/api/cron/cleanup-deleted/route.js` | GET | No | Dev cron (10s poll) / External cron service (e.g. cron-job.org) — purges `User` docs with `isDeleted: true` |
 
 ### API quirks
 

@@ -19,7 +19,7 @@ Owns the cleanup-cron.js script.
 
 ## Work Guidance
 
-- This is a dev-only cron. In production, use the API route directly with Vercel Cron Jobs or similar.
+- This is a dev-only cron. In production, use the API route directly with an external cron service (e.g. cron-job.org).
 - Grace period for deletion is controlled by `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS`.
 
 ## Verification
