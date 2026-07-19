@@ -27,7 +27,9 @@ export async function GET() {
       await Lynko.deleteMany({ userId: clerkUserId });
       await Design.deleteOne({ clerkUserId });
       await Analytics.deleteMany({ userId: clerkUserId });
-      cloudinary.uploader.destroy(`lynko/avatars/${clerkUserId}`).catch(() => {});
+      cloudinary.uploader
+        .destroy(`lynko/avatars/${clerkUserId}`)
+        .catch(() => {});
       await User.deleteOne({ _id: user._id });
 
       console.log(`Purged user ${clerkUserId} (${user.username})`);
