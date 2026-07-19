@@ -54,8 +54,8 @@ const DeleteAccount = ({
               if (ms < 60000) return `${ms / 1000} seconds`;
               if (ms < 3600000) return `${ms / 60000} minutes`;
               return `${ms / 3600000} hours`;
-            })()}.
-            You can cancel by logging in within the grace period.
+            })()}
+            . You can cancel by logging in within the grace period.
           </p>
 
           <div className="relative">
@@ -63,8 +63,8 @@ const DeleteAccount = ({
               <p
                 className={
                   deleteError
-                    ? "label mb-2 md:text-sm text-red-600 flex items-center gap-1.5"
-                    : "label mb-2 md:text-sm text-green-600 flex items-center gap-1.5"
+                    ? "label mb-2 text-xs md:text-sm text-red-600 flex items-center gap-1.5"
+                    : "label mb-2 text-xs md:text-sm text-green-600 flex items-center gap-1.5"
                 }
               >
                 {deleteError && (

@@ -130,9 +130,32 @@ const ProfileTab = ({ user, setUser }) => {
 
   async function saveProfile() {
     setLoading("save");
-    if (error) {
+    setError(false);
+    setMssg("");
+
+    if (!/^[a-zA-Z0-9_]{3,12}$/.test(username)) {
+      setError(true);
+      setMssg("Pick a username 3–12 characters long, using only letters, numbers, and underscores.");
       setLoading("");
       return;
+    }
+
+    if (username !== user.username) {
+      try {
+        const check = await fetch(`/api/users/check-username?username=${username}`);
+        const data = await check.json();
+        if (data.error) {
+          setError(true);
+          setMssg(data.message);
+          setLoading("");
+          return;
+        }
+      } catch {
+        setError(true);
+        setMssg("Could not check username. Try again.");
+        setLoading("");
+        return;
+      }
     }
 
     try {
@@ -149,12 +172,18 @@ const ProfileTab = ({ user, setUser }) => {
 
       if (res.ok) {
         setInitialUser({ username, bio });
+        setMssg("");
+        setLoading("");
+        setTmssg({ text: "Profile updated successfully.", type: "alert-success" });
+        setToast(true);
+      } else {
+        const data = await res.json();
+        setError(true);
+        setMssg(data.error || "Failed to save.");
+        setLoading("");
       }
-      setMssg("");
-      setLoading("");
-      setTmssg({ text: "Profile updated successfully.", type: "alert-success" });
-      setToast(true);
     } catch {
+      setError(true);
       setMssg("");
       setLoading("");
       setTmssg({ text: "Failed to save. Try again.", type: "alert-error" });
