@@ -51,7 +51,7 @@ Owns all route handlers, API endpoints, layout, and global styles.
 ## Work Guidance
 
 - Always `await params` in App Router route handlers and pages (Next.js 15+ async params API)
-- `proxy.js` at root is named wrong — a working middleware would need to be `middleware.js`
+- `middleware.js` at root configures Clerk public routes for landing page, public API endpoints (public profile, check-username, analytics track), and the cron cleanup endpoint
 - When adding env vars, update both `.env.local` and the README
 - Design defaults in `api/designs/route.js:7-15` must match `models/Design.js:14-27`
 

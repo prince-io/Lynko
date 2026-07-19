@@ -161,7 +161,7 @@ Default values are duplicated in `models/Design.js:14-27` and `api/designs/route
 
 ### Middleware
 
-`proxy.js` at root calls `clerkMiddleware({ publicRoutes: ["/", "/:username"] })` but is **not** auto-discovered — needs to be named `middleware.js`. App still works because `<ClerkProvider>` handles client-side routing.
+`middleware.js` at root runs `clerkMiddleware` with public routes for the landing page, public API endpoints, and the cron cleanup endpoint. Protected API routes block unauthenticated requests.
 
 ## Verification
 

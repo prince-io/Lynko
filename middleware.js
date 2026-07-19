@@ -1,7 +1,14 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export const proxy = clerkMiddleware({
-  publicRoutes: ["/", "/:username"],
+export default clerkMiddleware({
+  publicRoutes: [
+    "/",
+    "/:username",
+    "/api/public(.*)",
+    "/api/users/check-username",
+    "/api/analytics/track",
+    "/api/cron/cleanup-deleted",
+  ],
 });
 
 export const config = {
