@@ -21,7 +21,7 @@ Owns the Profile tab of the authenticated dashboard.
 - `CropModal` receives `{ imageSrc, onConfirm(blob), onCancel }` — fixed overlay with react-easy-crop (1:1 aspect), zoom range slider, confirm/cancel buttons. Generates JPEG blob via canvas on confirm.
 - `PublicHandle` receives `{ username, setUsername, error, mssg, loading, checkUsername }` — renders URL prefix, input, validation message, and check button
 - `BioEditor` receives `{ bio, setBio }` — renders textarea for bio editing
-- `DeleteAccount` receives `{ deleteLoading, deleteError, deleteMssg, handleDelete }` — two-step UI: DELETE text input, then warning confirmation with grace-period info read from `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS`
+- `DeleteAccount` receives `{ deleteLoading, deleteError, deleteMssg, handleDelete }` — two-step UI: DELETE text input, then warning confirmation with grace-period info via `getGraceMs()` from `@/lib/gracePeriod`
 
 ### Quirks
 

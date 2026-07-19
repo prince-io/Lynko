@@ -58,7 +58,7 @@ const ProfilePhoto = ({
 
           <button
             className="btn btn-sm md:btn-lg btn-secondary w-fit"
-            disabled={!croppedBlob || loading == "profilePic"}
+            disabled={!croppedBlob || loading === "profilePic"}
             onClick={handleUpload}
             title="Upload avatar"
           >

@@ -10,7 +10,7 @@ Owns all route handlers, API endpoints, layout, and global styles.
 - API routes in `app/api/*` use `NextResponse` from `next/server`
 - Server components use `auth()` from `@clerk/nextjs/server` for auth
 - Client components use `useAuth()` from `@clerk/nextjs`
-- 10 Google Fonts loaded in `layout.js` as CSS variables via `next/font`
+- 20 Google Fonts loaded in `layout.js` as CSS variables via `next/font`
 - Global styles in `globals.css` — Tailwind v4 `@import "tailwindcss"` + DaisyUI plugin with all themes
 
 ### Route structure
@@ -32,7 +32,7 @@ Owns all route handlers, API endpoints, layout, and global styles.
 | `app/api/analytics/overview/route.js` | GET | Required — total views, clicks, top links summary |
 | `app/api/analytics/timeline/route.js` | GET | Required — time-bucketed data for line chart |
 | `app/api/analytics/distribution/route.js` | GET | Required — per-link click breakdown for pie chart |
-| `app/api/cron/cleanup-deleted/route.js` | GET | No | Dev cron (10s poll) / External cron service (e.g. cron-job.org) — purges `User` docs with `isDeleted: true` |
+| `app/api/cron/cleanup-deleted/route.js` | GET | Purges `User` docs with `isDeleted: true`. Dev: 10s poll. Production: 1h cron via external service (e.g. cron-job.org). |
 
 ### API quirks
 

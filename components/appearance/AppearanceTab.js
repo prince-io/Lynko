@@ -18,57 +18,60 @@ const AppearanceTab = ({ user, setUser }) => {
   const [design, setDesign] = useState({
     theme: "lemonade",
     font: "inter",
-    size: 2,
-    radius: 2,
-    border: "none",
-    avatar: "rounded-xl",
+    size: [
+      "md:text-lg text-sm",
+      "md:text-base text-xs",
+      "md:text-sm text-xs",
+      "text-xs",
+    ],
+    radius: "rounded-none",
+    border: "",
+    avatar: "",
     background: "bg-primary",
     buttonStyle: "btn btn btn-accent",
-    buttonRadius: "rounded",
+    buttonRadius: "rounded-none",
   });
   const [initialDesign, setInitialDesign] = useState({});
 
   const [isSaving, setIsSaving] = useState(false);
-  const [display, setDisplay] = useState(false);
   const [mssg, setMssg] = useState({});
   const [toast, setToast] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/links");
-      const data = await res.json();
+      try {
+        const res = await fetch("/api/links");
+        const data = await res.json();
 
-      const linksArray = data.map((link) => ({
-        ...link,
-        clientId: generateUUID(),
-      }));
+        const linksArray = data.map((link) => ({
+          ...link,
+          clientId: generateUUID(),
+        }));
 
-      setLinks(linksArray);
+        setLinks(linksArray);
+      } catch {}
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/designs");
-      const data = await res.json();
-      setDesign(data);
-      setInitialDesign(data);
+      try {
+        const res = await fetch("/api/designs");
+        const data = await res.json();
+        setDesign(data);
+        setInitialDesign(data);
+      } catch {}
     })();
   }, []);
 
   useEffect(() => {
     if (!toast) return;
 
-    (() => {
-      setDisplay(true);
+    const timer = setTimeout(() => {
+      setToast(false);
+    }, 5000);
 
-      const timer = setTimeout(() => {
-        setDisplay(false);
-        setToast(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    })();
+    return () => clearTimeout(timer);
   }, [toast]);
 
   async function saveDesign() {
@@ -77,21 +80,34 @@ const AppearanceTab = ({ user, setUser }) => {
     if (isSaving) return;
     setIsSaving(true);
 
-    const res = await fetch("/api/designs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(design),
-    });
-
-    if (res.ok) {
-      setInitialDesign(design);
-      setIsSaving(false);
-      setMssg({
-        text: "Appearance settings updated successfully.",
-        type: "alert-success",
+    try {
+      const res = await fetch("/api/designs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(design),
       });
-      setToast(true);
+
+      if (res.ok) {
+        setInitialDesign(design);
+        setMssg({
+          text: "Appearance settings updated successfully.",
+          type: "alert-success",
+        });
+      } else {
+        setMssg({
+          text: "Failed to save. Try again.",
+          type: "alert-error",
+        });
+      }
+    } catch {
+      setMssg({
+        text: "Network error. Try again.",
+        type: "alert-error",
+      });
     }
+
+    setIsSaving(false);
+    setToast(true);
   }
 
   function resetDesign() {
@@ -105,7 +121,7 @@ const AppearanceTab = ({ user, setUser }) => {
 
   return (
     <div>
-      {display && (
+      {toast && (
         <div className="toast toast-end z-3">
           <div className={`alert md:text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>
@@ -126,7 +142,10 @@ const AppearanceTab = ({ user, setUser }) => {
           <button
             className="btn btn-sm md:btn-md btn-primary"
             onClick={saveDesign}
-            disabled={isSaving || design === initialDesign}
+            disabled={
+              isSaving ||
+              JSON.stringify(design) === JSON.stringify(initialDesign)
+            }
           >
             {isSaving ? "Saving..." : "Save"}
           </button>

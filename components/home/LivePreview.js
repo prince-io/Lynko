@@ -63,7 +63,7 @@ const LivePreview = ({ user, links, design }) => {
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  key={index}
+                  key={link._id}
                   className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} text-accent-content border-4 min-w-0 transition-transform duration-200 hover:scale-105`}
                 >
                   <MarqueeText>{link.title || "Untitled"}</MarqueeText>

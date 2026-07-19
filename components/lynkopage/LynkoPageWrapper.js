@@ -16,16 +16,21 @@ export default function LynkoPageWrapper() {
     if (!username) return;
 
     async function fetchPublicPage() {
-      const res = await fetch(`/api/public/${username}`);
+      try {
+        const res = await fetch(`/api/public/${username}`);
 
-      if (res.status === 404) {
-        router.replace("/404");
-        return;
+        if (res.status === 404) {
+          router.replace("/404");
+          return;
+        }
+
+        const result = await res.json();
+        setData(result);
+      } catch {
+        // silently fail — user sees nothing
+      } finally {
+        setLoading(false);
       }
-
-      const result = await res.json();
-      setData(result);
-      setLoading(false);
     }
 
     fetchPublicPage();

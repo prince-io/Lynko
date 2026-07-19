@@ -62,7 +62,6 @@ const LinksTab = ({ user, setUser }) => {
 
   const [linksLoading, setLinksLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [display, setDisplay] = useState(false);
   const [mssg, setMssg] = useState({});
   const [toast, setToast] = useState(false);
 
@@ -105,16 +104,11 @@ const LinksTab = ({ user, setUser }) => {
   useEffect(() => {
     if (!toast) return;
 
-    (() => {
-      setDisplay(true);
+    const timer = setTimeout(() => {
+      setToast(false);
+    }, 5000);
 
-      const timer = setTimeout(() => {
-        setDisplay(false);
-        setToast(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    })();
+    return () => clearTimeout(timer);
   }, [toast]);
 
   const handleDragEnd = (event) => {
@@ -186,41 +180,39 @@ const LinksTab = ({ user, setUser }) => {
     if (isSaving) return;
     setIsSaving(true);
 
-    for (const link of links) {
-      if (link._id) {
-        await fetch(`/api/links/${link._id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title: link.title,
-            url: link.url,
-            order: link.order,
-            isActive: link.isActive,
-          }),
-        });
-      } else {
-        await fetch("/api/links", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title: link.title,
-            url: link.url,
-            order: link.order,
-            isActive: link.isActive,
-          }),
+    try {
+      for (const link of links) {
+        if (link._id) {
+          await fetch(`/api/links/${link._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: link.title,
+              url: link.url,
+              order: link.order,
+              isActive: link.isActive,
+            }),
+          });
+        } else {
+          await fetch("/api/links", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: link.title,
+              url: link.url,
+              order: link.order,
+              isActive: link.isActive,
+            }),
+          });
+        }
+      }
+
+      for (const id of deletedIds) {
+        await fetch(`/api/links/${id}`, {
+          method: "DELETE",
         });
       }
-    }
 
-    for (const id of deletedIds) {
-      await fetch(`/api/links/${id}`, {
-        method: "DELETE",
-      });
-    }
-
-    setDeletedIds([]);
-
-    (async () => {
       const res = await fetch("/api/links");
       const data = await res.json();
 
@@ -229,15 +221,17 @@ const LinksTab = ({ user, setUser }) => {
         clientId: generateUUID(),
       }));
 
+      setDeletedIds([]);
       setInitialLinks(linksArray);
       setLinks(linksArray);
 
-      if (res.ok) {
-        setIsSaving(false);
-        setMssg({ text: "Links updated successfully.", type: "alert-success" });
-        setToast(true);
-      }
-    })();
+      setMssg({ text: "Links updated successfully.", type: "alert-success" });
+    } catch {
+      setMssg({ text: "Something went wrong. Try again.", type: "alert-error" });
+    }
+
+    setIsSaving(false);
+    setToast(true);
   };
 
   function resetLinks() {
@@ -268,7 +262,7 @@ const LinksTab = ({ user, setUser }) => {
 
   return (
     <div>
-      {display && (
+      {toast && (
         <div className="toast toast-end z-3">
           <div className={`alert md:text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>
@@ -341,6 +335,16 @@ const LinksTab = ({ user, setUser }) => {
                     <div className="h-7 w-7 bg-base-300 rounded mx-2" />
                   </div>
                 ))}
+              </div>
+            ) : links.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <h3 className="text-lg md:text-xl font-semibold mb-1">
+                  No links yet
+                </h3>
+                <p className="text-sm md:text-base opacity-70 max-w-xs">
+                  Click the <strong>Add link</strong> button above to start
+                  building your Lynko page.
+                </p>
               </div>
             ) : (
               <DndContext

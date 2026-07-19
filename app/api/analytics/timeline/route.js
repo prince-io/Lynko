@@ -10,14 +10,11 @@ function getDateThreshold(period) {
     case "1h":
       return new Date(now.getTime() - 60 * 60 * 1000);
     case "1d":
-    case "24h":
       return new Date(now.getTime() - 24 * 60 * 60 * 1000);
     case "7d":
       return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     case "30d":
       return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-    case "90d":
-      return new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
     default:
       return new Date(now.getTime() - 24 * 60 * 60 * 1000);
   }
@@ -28,14 +25,12 @@ function getGranularity(period) {
     case "1h":
       return "minute";
     case "1d":
-    case "24h":
       return "hour";
     case "7d":
       return "day";
     case "30d":
+    case "all":
       return "day";
-    case "90d":
-      return "week";
     default:
       return "hour";
   }
@@ -100,17 +95,19 @@ export async function GET(req) {
   const linkId = searchParams.get("linkId") || "all";
   const manualGranularity = searchParams.get("granularity");
 
-  const validPeriods = ["1h", "1d", "7d", "30d"];
+  const validPeriods = ["1h", "1d", "7d", "30d", "all"];
   if (!validPeriods.includes(period)) {
     return NextResponse.json(
-      { error: "period must be 1h, 1d, 7d, or 30d" },
+      { error: "period must be 1h, 1d, 7d, 30d, or all" },
       { status: 400 },
     );
   }
 
   await connectDB();
 
-  const dateThreshold = getDateThreshold(period);
+  const dateThreshold = period === "all"
+    ? new Date(Date.now() - 90 * 24 * 60 * 60 * 1000)
+    : getDateThreshold(period);
   const granularity = manualGranularity || getGranularity(period);
 
   const match = { userId, timestamp: { $gte: dateThreshold } };

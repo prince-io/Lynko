@@ -6,13 +6,18 @@ import Design from "@/models/Design";
 const defaultDesign = {
   theme: "lemonade",
   font: "inter",
-  size: 2,
-  radius: 2,
-  border: "none",
-  avatar: "rounded-xl",
+  size: [
+    "md:text-lg text-sm",
+    "md:text-base text-xs",
+    "md:text-sm text-xs",
+    "text-xs",
+  ],
+  radius: "rounded-none",
+  border: "",
+  avatar: "",
   background: "bg-primary",
-  buttonStyle: "btn btn-accent",
-  buttonRadius: "rounded",
+  buttonStyle: "btn btn btn-accent",
+  buttonRadius: "rounded-none",
 };
 
 export async function GET(req) {

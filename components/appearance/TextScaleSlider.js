@@ -59,7 +59,7 @@ export default function TextScaleSlider({ size, onChange }) {
           <span
             key={label}
             className={`absolute text-xs ${
-              size === text ? "font-bold text-base-content" : "opacity-80"
+              JSON.stringify(size) === JSON.stringify(text) ? "font-bold text-base-content" : "opacity-80"
             }`}
             style={{
               left: `${getLeft(i)}%`,

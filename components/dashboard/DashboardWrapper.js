@@ -10,6 +10,10 @@ export default function DashboardWrapper({ user }) {
   const [currentUser, setCurrentUser] = useState(user);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeTab]);
+
+  useEffect(() => {
     setCurrentUser(user);
   }, [user]);
 

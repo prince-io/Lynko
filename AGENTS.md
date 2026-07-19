@@ -90,7 +90,7 @@ Root owns all directories not listed in the Child DOX Index below.
 
 - Plain JS (no TypeScript). `@/*` path alias maps to project root (`jsconfig.json`).
 - Next.js App Router, React 19. Clerk v6 for auth, Mongoose for MongoDB, Cloudinary for avatars.
-- Tailwind CSS v4 + DaisyUI (all themes enabled). 10 Google Fonts loaded as CSS variables via `next/font`.
+- Tailwind CSS v4 + DaisyUI (all themes enabled). 20 Google Fonts loaded as CSS variables via `next/font`.
 - No test files, no CI, no pre-commit hooks, no formatter config.
 
 ## Work Guidance
@@ -143,13 +143,13 @@ No test command exists.
 | `/api/links/[id]` | DELETE | Yes | Delete link |
 | `/api/designs` | GET | Yes | Get design (upserts default if missing) |
 | `/api/designs` | POST | Yes | Save design customization |
-| `/api/users` | DELETE | Yes | Schedule account deletion (grace period: 12h prod / 10s dev) |
+| `/api/users` | DELETE | Yes | Schedule account deletion (grace period controlled by `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS`) |
 | `/api/cron/cleanup-deleted` | GET | No | Purge users past grace period + cascade delete all data |
 
 ### Dashboard quirks
 
 - **Dashboard layout**: Auto-creates User doc on first visit. If user visits during deletion grace period, auto-cancels deletion (`isDeleted: false`). Past grace, redirects to `/`.
-- **Deletion grace period**: Controlled by `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS` env var. Default: 43200000 (12h).
+- **Deletion grace period**: Controlled by `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS` env var. Required — no fallback. Dev: `60000` (1 min), polled by dev cron every 10s. Production: `43200000` (12 hrs), cron every 1 hr.
 - **Links tab**: Uses `@dnd-kit` with vertical-axis drag (x clamped to 0). `clientId` (UUID) for sortable identity, `_id` for server ops. "Save All" iterates: PUT existing links, POST new ones, DELETE removed.
 - **Appearance tab**: Cleaned up — no commented-out old code remains. Customization pickers are separate components.
 - **Profile tab**: `checkUsername()` calls `GET /api/users/check-username?username=...` — route exists at `app/api/users/check-username/route.js`. Validates alphanumeric and checks uniqueness. Split into ProfilePhoto, CropModal, PublicHandle, BioEditor, DeleteAccount.
@@ -157,7 +157,7 @@ No test command exists.
 
 ### Design defaults
 
-Default values are duplicated in `models/Design.js:14-27` and `api/designs/route.js:7-15`. Keep in sync when changing defaults.
+Default values are duplicated in `models/Design.js:14-32` and `api/designs/route.js:7-21`. Keep in sync when changing defaults.
 
 ### Middleware
 

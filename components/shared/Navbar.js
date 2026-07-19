@@ -11,7 +11,7 @@ import ThemeButton from "./ThemeButton";
 import Menu from "./Menu";
 import { Hamburger, Logo } from "@/components/icons";
 
-const Navbar = ({ activeTab, setActiveTab }) => {
+const Navbar = ({ activeTab = "Home", setActiveTab = () => {} }) => {
   return (
     <div className="max-lg:collapse bg-primary shadow-sm w-full rounded-md sticky top-0 z-50">
       <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />

@@ -21,8 +21,8 @@ Owns shared utility and integration modules.
 - Font values must match the CSS variable names loaded in `app/layout.js` (e.g. `"inter"` → `--font-inter`)
 
 ### `gracePeriod.js`
-- Exports `getGraceMs()` which reads `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS` env var (fallback 12h)
-- Used by cron cleanup and dashboard layout (client-side DeleteAccount reads `NEXT_PUBLIC_` var directly)
+- Exports `getGraceMs()` which reads `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS` env var. Throws if unset or invalid — must be a positive number.
+- Used by cron cleanup, dashboard layout, and client-side DeleteAccount (all import `getGraceMs()`)
 
 ### `uuid.js`
 - Fallback UUID v4 generator using `crypto.randomUUID` when available, manual string template otherwise

@@ -15,66 +15,71 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
   const [design, setDesign] = useState({
     theme: "lemonade",
     font: "inter",
-    size: 2,
-    radius: 2,
-    border: "none",
-    avatar: "rounded-xl",
+    size: [
+      "md:text-lg text-sm",
+      "md:text-base text-xs",
+      "md:text-sm text-xs",
+      "text-xs",
+    ],
+    radius: "rounded-none",
+    border: "",
+    avatar: "",
     background: "bg-primary",
-    buttonStyle: "btn btn-accent",
-    buttonRadius: "rounded",
+    buttonStyle: "btn btn btn-accent",
+    buttonRadius: "rounded-none",
   });
 
   const [overview, setOverview] = useState(null);
 
-  const [display, setDisplay] = useState(false);
   const [mssg, setMssg] = useState({});
   const [toast, setToast] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/links");
-      const data = await res.json();
-
-      const linksArray = data.map((link) => ({
-        ...link,
-        clientId: generateUUID(),
-      }));
-
-      setLinks(linksArray);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch("/api/designs");
-      const data = await res.json();
-      setDesign(data);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch("/api/analytics/overview?period=all");
-      if (res.ok) {
+      try {
+        const res = await fetch("/api/links");
         const data = await res.json();
-        setOverview(data);
-      }
+
+        const linksArray = data.map((link) => ({
+          ...link,
+          clientId: generateUUID(),
+        }));
+
+        setLinks(linksArray);
+      } catch {}
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/designs");
+        const data = await res.json();
+        setDesign(data);
+      } catch {}
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/analytics/overview?period=all");
+        if (res.ok) {
+          const data = await res.json();
+          setOverview(data);
+        }
+      } catch {}
     })();
   }, []);
 
   useEffect(() => {
     if (!toast) return;
 
-    (() => {
-      setDisplay(true);
+    const timer = setTimeout(() => {
+      setToast(false);
+    }, 5000);
 
-      const timer = setTimeout(() => {
-        setDisplay(false);
-        setToast(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    })();
+    return () => clearTimeout(timer);
   }, [toast]);
 
   const handleCopy = async () => {
@@ -100,7 +105,7 @@ const HomeTab = ({ user, setUser, setActiveTab }) => {
 
   return (
     <div>
-      {display && (
+      {toast && (
         <div className="toast toast-end z-3">
           <div className={`alert md:text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>

@@ -79,7 +79,7 @@ const How = () => {
 
           <div
             ref={cardsRef}
-            className="flex gap-5 md:gap-10 flex-col md:flex-row justify-center items-center p-4 md:p-0"
+            className="flex gap-5 md:gap-10 flex-col md:flex-row flex-wrap justify-center items-center p-4 md:p-0 max-w-full"
           >
             <Card
               num={"1"}

@@ -26,7 +26,6 @@ const ProfileTab = ({ user, setUser }) => {
   const [deleteError, setDeleteError] = useState(false);
   const [deleteMssg, setDeleteMssg] = useState("");
 
-  const [display, setDisplay] = useState(false);
   const [Tmssg, setTmssg] = useState({});
   const [toast, setToast] = useState(false);
 
@@ -48,16 +47,11 @@ const ProfileTab = ({ user, setUser }) => {
   useEffect(() => {
     if (!toast) return;
 
-    (() => {
-      setDisplay(true);
+    const timer = setTimeout(() => {
+      setToast(false);
+    }, 5000);
 
-      const timer = setTimeout(() => {
-        setDisplay(false);
-        setToast(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    })();
+    return () => clearTimeout(timer);
   }, [toast]);
 
   function handleFileSelect(e) {
@@ -88,26 +82,31 @@ const ProfileTab = ({ user, setUser }) => {
     const formData = new FormData();
     formData.append("file", croppedBlob, "avatar.jpg");
 
-    const res = await fetch("/api/users", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (!res.ok) {
-      const data = await res.json();
-      setLoading("");
-      setTmssg({ text: data.error || "Upload failed. Try again.", type: "alert-error" });
+      if (!res.ok) {
+        const data = await res.json();
+        setTmssg({ text: data.error || "Upload failed. Try again.", type: "alert-error" });
+        setToast(true);
+        return;
+      }
+
+      const updatedUser = await res.json();
+      setUser(updatedUser);
+      fileInputRef.current.value = "";
+      setCroppedBlob(null);
+      setTmssg({ text: "Avatar updated successfully.", type: "alert-success" });
       setToast(true);
-      return;
+    } catch {
+      setTmssg({ text: "Upload failed. Try again.", type: "alert-error" });
+      setToast(true);
+    } finally {
+      setLoading("");
     }
-
-    const updatedUser = await res.json();
-    setUser(updatedUser);
-    fileInputRef.current.value = "";
-    setCroppedBlob(null);
-    setLoading("");
-    setTmssg({ text: "Avatar updated successfully.", type: "alert-success" });
-    setToast(true);
   }
 
   async function checkUsername(name) {
@@ -116,17 +115,27 @@ const ProfileTab = ({ user, setUser }) => {
       setError(true);
       setMssg("Pick a username 3–12 characters long, using only letters, numbers, and underscores.");
     } else if (name !== user.username) {
-      const res = await fetch(`/api/users/check-username?username=${name}`);
-      const data = await res.json();
-      setError(data.error);
-      setMssg(data.message);
+      try {
+        const res = await fetch(`/api/users/check-username?username=${name}`);
+        const data = await res.json();
+        setError(data.error);
+        setMssg(data.message);
+      } catch {
+        setError(true);
+        setMssg("Could not check username. Try again.");
+      }
     }
     setLoading("");
   }
 
   async function saveProfile() {
     setLoading("save");
-    if (!error) {
+    if (error) {
+      setLoading("");
+      return;
+    }
+
+    try {
       const res = await fetch("/api/users", {
         method: "PUT",
         headers: {
@@ -137,11 +146,20 @@ const ProfileTab = ({ user, setUser }) => {
           bio,
         }),
       });
+
+      if (res.ok) {
+        setInitialUser({ username, bio });
+      }
+      setMssg("");
+      setLoading("");
+      setTmssg({ text: "Profile updated successfully.", type: "alert-success" });
+      setToast(true);
+    } catch {
+      setMssg("");
+      setLoading("");
+      setTmssg({ text: "Failed to save. Try again.", type: "alert-error" });
+      setToast(true);
     }
-    setMssg("");
-    setLoading("");
-    setTmssg({ text: "Profile updated successfully.", type: "alert-success" });
-    setToast(true);
   }
 
   async function handleDelete() {
@@ -149,21 +167,27 @@ const ProfileTab = ({ user, setUser }) => {
     setDeleteError(false);
     setDeleteMssg("");
 
-    const res = await fetch("/api/users", { method: "DELETE" });
+    try {
+      const res = await fetch("/api/users", { method: "DELETE" });
 
-    if (!res.ok) {
+      if (!res.ok) {
+        setDeleteError(true);
+        setDeleteMssg("Something went wrong. Please try again.");
+        setDeleteLoading(false);
+        return;
+      }
+
+      signOut({ forceRedirectUrl: "/" });
+    } catch {
       setDeleteError(true);
       setDeleteMssg("Something went wrong. Please try again.");
       setDeleteLoading(false);
-      return;
     }
-
-    signOut({ forceRedirectUrl: "/" });
   }
 
   return (
     <div>
-      {display && (
+      {toast && (
         <div className="toast toast-end z-3">
           <div className={`alert md:text-lg ${Tmssg.type}`}>
             <span>{Tmssg.text}</span>
@@ -176,10 +200,10 @@ const ProfileTab = ({ user, setUser }) => {
 
         <button
           className="btn btn-sm md:btn-md btn-primary"
-          disabled={loading == "save" || error || isUnchanged}
+          disabled={loading === "save" || error || isUnchanged}
           onClick={saveProfile}
         >
-          {loading == "save" ? "Saving..." : "Save"}
+          {loading === "save" ? "Saving..." : "Save"}
         </button>
       </div>
 

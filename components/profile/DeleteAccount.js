@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ErrorIcon } from "@/components/icons";
+import { getGraceMs } from "@/lib/gracePeriod";
 
 const DeleteAccount = ({
   deleteLoading,
@@ -49,7 +50,7 @@ const DeleteAccount = ({
             Your account will be scheduled for deletion. All your links,
             analytics, and profile data will be permanently removed after{" "}
             {(() => {
-              const ms = parseInt(process.env.NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS || "43200000", 10);
+              const ms = getGraceMs();
               if (ms < 60000) return `${ms / 1000} seconds`;
               if (ms < 3600000) return `${ms / 60000} minutes`;
               return `${ms / 3600000} hours`;

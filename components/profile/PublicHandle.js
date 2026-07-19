@@ -34,12 +34,12 @@ const PublicHandle = ({
 
             <button
               className="btn btn-sm md:btn-md btn-secondary ml-2 md:ml-6"
-              disabled={loading == "username"}
+              disabled={loading === "username"}
               onClick={() => {
                 checkUsername(username);
               }}
             >
-              {loading == "username" ? "Checking..." : "Check"}
+              {loading === "username" ? "Checking..." : "Check"}
             </button>
           </fieldset>
 

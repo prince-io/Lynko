@@ -11,23 +11,17 @@ const LynkoPage = ({ user, links, design, userId }) => {
     `${process.env.NEXT_PUBLIC_APP_URL}/${user.username}`,
   );
 
-  const [display, setDisplay] = useState(false);
   const [mssg, setMssg] = useState({});
   const [toast, setToast] = useState(false);
 
   useEffect(() => {
     if (!toast) return;
 
-    (() => {
-      setDisplay(true);
+    const timer = setTimeout(() => {
+      setToast(false);
+    }, 5000);
 
-      const timer = setTimeout(() => {
-        setDisplay(false);
-        setToast(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    })();
+    return () => clearTimeout(timer);
   }, [toast]);
 
   const handleCopy = async () => {
@@ -54,7 +48,7 @@ const LynkoPage = ({ user, links, design, userId }) => {
 
   return (
     <div>
-      {display && (
+      {toast && (
         <div className="toast toast-end">
           <div className={`alert md:text-lg ${mssg.type}`}>
             <span>{mssg.text}</span>
@@ -116,7 +110,7 @@ const LynkoPage = ({ user, links, design, userId }) => {
                 userId={userId}
                 linkId={link._id}
                 title={link.title}
-                key={index}
+                key={link._id}
                 className={`${design.buttonStyle} ${design.buttonRadius} ${design.size[3]} text-accent-content border-4 min-w-0 transition-transform duration-200 hover:scale-105`}
               >
                 <MarqueeText>{link.title || "Untitled"}</MarqueeText>

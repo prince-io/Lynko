@@ -12,13 +12,13 @@ Owns the Appearance dashboard tab and all its customization pickers.
 | `AppearancePreview` | Preview | Phone-style preview of the user's current design |
 |-----------|------|----------------|
 | `ThemeDropdown` | Dropdown | `THEMES` (35 DaisyUI theme names) |
-| `FontDropdown` | Dropdown | `FONT` (10 fonts matching CSS variables in `app/layout.js`) |
+| `FontDropdown` | Dropdown | `FONT` (20 fonts matching CSS variables in `app/layout.js`) |
 | `TextScaleSlider` | Range slider | `SIZE` (6 scale levels, each an array of 4 Tailwind text classes) |
 | `CornerRadiusSlider` | Range slider | `RADIUS` (6 radius class values) |
 | `BorderStyleRadio` | Radio group | `BORDER` (5 styles: none, solid, dashed, dotted, double) |
 | `AvatarShapeRadio` | Radio group | `AVATAR` (7 shapes including mask classes) |
 | `ButtonStyleRadio` | Radio group | `BTN` (4 styles: solid, soft, outline, dash) |
-| `ButtonShapeRadio` | Radio group | `BTNRAD` (2 shapes: rounded, square) |
+| `ButtonShapeRadio` | Radio group | `BTNRAD` (5 shapes: sharp, square, soft, rounded, pill) |
 | `BackgroundStyleDropdown` | Dropdown | `BG` (10 options: primary, secondary, 8 gradient directions) |
 
 ## Local Contracts

@@ -21,6 +21,8 @@ Owns the cleanup-cron.js script.
 
 - This is a dev-only cron. In production, use the API route directly with an external cron service (e.g. cron-job.org).
 - Grace period for deletion is controlled by `NEXT_PUBLIC_DELETION_GRACE_PERIOD_MS`.
+- Dev settings: 60s grace period (`60000`), 10s cron poll interval. The cron polls faster than the grace period so users are purged within ~10s of the grace elapsing.
+- Production settings: 12h grace period (`43200000`), 1h cron interval. Use an external cron service (e.g. cron-job.org) hitting `GET /api/cron/cleanup-deleted` every hour.
 
 ## Verification
 
