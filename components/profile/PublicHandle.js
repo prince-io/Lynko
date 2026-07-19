@@ -17,7 +17,7 @@ const PublicHandle = ({
       <div className="flex gap-6">
         <div className="flex flex-col justify-start gap-2">
           <fieldset className="fieldset w-full relative flex items-center">
-            <p className="hidden md:block mx-2 text-base">
+            <p className="hidden md:block mx-2 text-base w-fit whitespace-nowrap">
               {process.env.NEXT_PUBLIC_APP_URL}/
             </p>
 
